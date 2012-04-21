@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2010-2012 The MyBatis Team
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!--
+  version: $Id$
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-parent</artifactId>
+    <version>15</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.mybatis.caches</groupId>
+  <artifactId>mybatis-memcached</artifactId>
+  <packaging>jar</packaging>
+  <name>MyBatis Caches :: Memcached</name>
+  <version>1.0.2-SNAPSHOT</version>
+  <description>Memcached support for MyBatis Cache</description>
+  <url>http://www.mybatis.org/caches/memcached/</url>
+
+  <scm>
+    <url>scm:svn:http://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</url>
+    <connection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</connection>
+    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</developerConnection>
+  </scm>
+  <distributionManagement>
+    <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
+    <site>
+      <id>mybatis.site</id>
+      <!--
+       | make it overridible, FTP is terribly slow when launched from Maven Wagon
+       | an alternative strategy could be deploying the site locally
+       |
+       |    -Dsite.deploymentUrl=file://...
+       |
+       | then async redeploying it via Filezilla/whatelese
+      -->
+      <url>${site.deploymentUrl}</url>
+    </site>
+  </distributionManagement>
+
+  <properties>
+    <findbugs.onlyAnalyze>org.mybatis.caches.memcached.*</findbugs.onlyAnalyze>
+    <gcu.product>Cache</gcu.product>
+    <!--
+     | see distributionManagement.site.url
+    -->
+    <site.deploymentUrl>ftp://${mybatis.host}/caches/memcached/</site.deploymentUrl>
+  </properties>
+
+  <dependencies>
+    <!--
+     | Provided dependencies
+    -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!--
+     | compile dependencies
+    -->
+    <dependency>
+      <groupId>spy</groupId>
+      <artifactId>spymemcached</artifactId>
+      <version>2.8.1</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!--
+     | test dependencies
+    -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>spy</id>
+      <name>Spy Repository</name>
+      <layout>default</layout>
+      <url>http://files.couchbase.com/maven2/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <arguments>-Prelease,bundle,gupload</arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.2</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>index</report>
+              <report>summary</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>
