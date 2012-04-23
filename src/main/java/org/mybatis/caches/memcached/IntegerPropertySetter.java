@@ -25,7 +25,7 @@ final class IntegerPropertySetter extends AbstractPropertySetter<Integer> {
     /**
      * Instantiates a String to Integer setter.
      *
-     * @param propertyKey the OSCache Config property key.
+     * @param propertyKey the Config property key.
      * @param propertyName the {@link MemcachedConfiguration} property name.
      * @param defaultValue the property default value.
      */

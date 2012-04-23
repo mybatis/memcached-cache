@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Converts a keyed property string in the OSCache Config to a proper Java
+ * Converts a keyed property string in the Config to a proper Java
  * object representation.
  *
  * @version $Id$
@@ -51,7 +51,7 @@ abstract class AbstractPropertySetter<T> {
     }
 
     /**
-     * The OSCache Config property key.
+     * The Config property key.
      */
     private final String propertyKey;
 
@@ -67,14 +67,14 @@ abstract class AbstractPropertySetter<T> {
 
     /**
      * The default value used if something goes wrong during the conversion or
-     * the property is not set in the OSCache config.
+     * the property is not set in the config.
      */
     private final T defaultValue;
 
     /**
      * Build a new property setter.
      *
-     * @param propertyKey the OSCache Config property key.
+     * @param propertyKey the Config property key.
      * @param propertyName the {@link MemcachedConfiguration} property name.
      * @param defaultValue the property default value.
      */
@@ -95,10 +95,10 @@ abstract class AbstractPropertySetter<T> {
     }
 
     /**
-     * Extract a property from the OSCache, converts and puts it to the
+     * Extract a property from the, converts and puts it to the
      * {@link MemcachedConfiguration}.
      *
-     * @param config the OSCache Config
+     * @param config the Config
      * @param memcachedConfiguration the {@link MemcachedConfiguration}
      */
     public final void set(Properties config, MemcachedConfiguration memcachedConfiguration) {
