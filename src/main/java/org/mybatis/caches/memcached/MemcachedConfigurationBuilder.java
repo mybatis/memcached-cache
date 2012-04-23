@@ -56,17 +56,17 @@ final class MemcachedConfigurationBuilder {
      * Hidden constructor, this class can't be instantiated.
      */
     private MemcachedConfigurationBuilder() {
-        this.settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.keyprefix", "keyPrefix", "_mybatis_"));
+        settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.keyprefix", "keyPrefix", "_mybatis_"));
 
-        this.settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
-        this.settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.timeout", "timeout", 5));
-        this.settersRegistry.add(new TimeUnitSetter());
+        settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
+        settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.timeout", "timeout", 5));
+        settersRegistry.add(new TimeUnitSetter());
 
-        this.settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.asyncget", "usingAsyncGet", false));
-        this.settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.compression", "compressionEnabled", false));
+        settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.asyncget", "usingAsyncGet", false));
+        settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.compression", "compressionEnabled", false));
 
-        this.settersRegistry.add(new InetSocketAddressListPropertySetter());
-        this.settersRegistry.add(new ConnectionFactorySetter());
+        settersRegistry.add(new InetSocketAddressListPropertySetter());
+        settersRegistry.add(new ConnectionFactorySetter());
     }
 
     /**
@@ -79,7 +79,7 @@ final class MemcachedConfigurationBuilder {
         Properties config = new Properties();
 
         // load the properties specified from /memcached.properties, if present
-        InputStream input = this.getClass().getResourceAsStream(MEMCACHED_RESOURCE);
+        InputStream input = getClass().getResourceAsStream(MEMCACHED_RESOURCE);
         if (input != null) {
             try {
                 config.load(input);
@@ -97,7 +97,7 @@ final class MemcachedConfigurationBuilder {
 
         MemcachedConfiguration memcachedConfiguration = new MemcachedConfiguration();
 
-        for (AbstractPropertySetter<?> setter : this.settersRegistry) {
+        for (AbstractPropertySetter<?> setter : settersRegistry) {
             setter.set(config, memcachedConfiguration);
         }
 
