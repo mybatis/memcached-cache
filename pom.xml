@@ -31,14 +31,14 @@
   <artifactId>mybatis-memcached</artifactId>
   <packaging>jar</packaging>
   <name>MyBatis Caches :: Memcached</name>
-  <version>1.0.0-beta1-SNAPSHOT</version>
+  <version>1.0.0-beta1</version>
   <description>Memcached support for MyBatis Cache</description>
   <url>http://www.mybatis.org/caches/memcached/</url>
 
   <scm>
-    <url>scm:svn:http://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</url>
-    <connection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</connection>
-    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</developerConnection>
+    <url>scm:svn:http://mybatis.googlecode.com/svn/sub-projects/caches/tags/mybatis-memcached-1.0.0-beta1</url>
+    <connection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/tags/mybatis-memcached-1.0.0-beta1</connection>
+    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/tags/mybatis-memcached-1.0.0-beta1</developerConnection>
   </scm>
   <distributionManagement>
     <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
