@@ -70,7 +70,7 @@ final class MemcachedConfigurationBuilder {
     }
 
     /**
-     * Pares the Config and builds a new {@link MemcachedConfiguration}.
+     * Parses the Config and builds a new {@link MemcachedConfiguration}.
      *
      * @param config the Config.
      * @return the converted {@link MemcachedConfiguration}.
