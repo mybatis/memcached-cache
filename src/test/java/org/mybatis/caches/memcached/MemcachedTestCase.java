@@ -25,8 +25,13 @@ import org.junit.Test;
 /**
  * HOW TO RUN THE TEST
  *
- * Install memcached (in ubuntu type sudo apt-get install memcached).
- * Run.
+ * Install memcached:
+ * <ul>
+ * <li>in ubuntu, type <code>sudo apt-get install memcached</code></li>
+ * <li>in mac os x, type <code>sudo port install memcached</code></li>
+ * </ul>
+ *
+ * launch <code>mvn test</code>.
  *
  * @version $Id$
  */
