@@ -91,6 +91,7 @@ final class MemcachedConfigurationBuilder {
                 try {
                     input.close();
                 } catch (IOException e) {
+                    // close quietly
                 }
             }
         }
