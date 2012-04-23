@@ -72,14 +72,23 @@ final class MemcachedConfigurationBuilder {
     /**
      * Parses the Config and builds a new {@link MemcachedConfiguration}.
      *
-     * @param config the Config.
      * @return the converted {@link MemcachedConfiguration}.
      */
     public MemcachedConfiguration parseConfiguration() {
+        return parseConfiguration(getClass().getClassLoader());
+    }
+
+    /**
+     * Parses the Config and builds a new {@link MemcachedConfiguration}.
+     *
+     * @param the {@link ClassLoader} used to load the {@code memcached.properties} file in classpath.
+     * @return the converted {@link MemcachedConfiguration}.
+     */
+    public MemcachedConfiguration parseConfiguration(ClassLoader classLoader) {
         Properties config = new Properties();
 
         // load the properties specified from /memcached.properties, if present
-        InputStream input = getClass().getClassLoader().getResourceAsStream(MEMCACHED_RESOURCE);
+        InputStream input = classLoader.getResourceAsStream(MEMCACHED_RESOURCE);
         if (input != null) {
             try {
                 config.load(input);
