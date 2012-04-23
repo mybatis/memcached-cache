@@ -17,11 +17,11 @@ package org.mybatis.caches.memcached;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -111,27 +111,12 @@ final class CompressorTranscoder implements Transcoder<Object> {
     /**
      * Unconditionally close an {@link InputStream}.
      *
-     * @param inputStream the InputStream to close, may be null or already closed.
+     * @param closeable the InputStream to close, may be null or already closed.
      */
-    private static void closeQuietly(final InputStream inputStream) {
-        if (inputStream != null) {
+    private static void closeQuietly(final Closeable closeable) {
+        if (closeable != null) {
             try {
-                inputStream.close();
-            } catch (IOException e) {
-                // do nothing
-            }
-        }
-    }
-
-    /**
-     * Unconditionally close an {@link OutputStream}.
-     *
-     * @param outputStream the OutputStream to close, may be null or already closed.
-     */
-    static void closeQuietly(final OutputStream outputStream) {
-        if (outputStream != null) {
-            try {
-                outputStream.close();
+                closeable.close();
             } catch (IOException e) {
                 // do nothing
             }
