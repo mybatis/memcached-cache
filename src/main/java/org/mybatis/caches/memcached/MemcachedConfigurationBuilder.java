@@ -56,7 +56,7 @@ final class MemcachedConfigurationBuilder {
      * Hidden constructor, this class can't be instantiated.
      */
     private MemcachedConfigurationBuilder() {
-        this.settersRegistry.add(new StringPropertySetter("com.google.code.ibaguice.memcached.keyprefix", "keyPrefix", "_ibaguice_"));
+        this.settersRegistry.add(new StringPropertySetter("com.google.code.ibaguice.memcached.keyprefix", "keyPrefix", "_mybatis_"));
 
         this.settersRegistry.add(new IntegerPropertySetter("com.google.code.ibaguice.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
         this.settersRegistry.add(new IntegerPropertySetter("com.google.code.ibaguice.memcached.timeout", "timeout", 5));

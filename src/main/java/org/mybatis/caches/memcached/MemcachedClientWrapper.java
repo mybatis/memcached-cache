@@ -232,7 +232,7 @@ final class MemcachedClientWrapper {
                     + "'");
         }
 
-        Object result = this.getObject(keyString);
+        Object result = this.getObject(key);
         if (result != null) {
             this.client.delete(keyString);
         }
