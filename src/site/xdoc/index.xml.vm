@@ -51,17 +51,62 @@
   <cache type="org.mybatis.caches.memcached.MemcachedCache" />
   ...
 </mapper>]]></source>
-            <p>You can also provide values for parameters that can be modified dynamically at runtime:</p>
-<source><![CDATA[<mapper namespace="org.acme.FooMapper">
-  <cache type="org.mybatis.caches.memcached.MemcachedCache" />
-    <property name="timeToIdleSeconds" value="3600" /><!--1 hour-->
-    <property name="timeToLiveSeconds" value="3600" /><!--1 hour-->
-    <property name="maxEntriesLocalHeap" value="1000" />
-    <property name="maxEntriesLocalDisk" value="10000000" />
-    <property name="memoryStoreEvictionPolicy" value="LRU" />
-  </cache>
-  ...
-</mapper>]]></source>
+
+  <p>The Memcached cache is configurable by putting the
+  <code>/memcached.properties</code> classpath resource; if not found, the client will
+  use the default setting.</p>
+  <p>The following table resumes the supported configurations params; each
+  parameter is optional, if not found in the configuration, the client will use
+  the default value:</p>
+
+  <table>
+    <tr>
+      <th>Property</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.keyprefix</td>
+      <td><code>_mybatis_</code></td>
+      <td>any string identifier</td>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.servers</td>
+      <td><code>localhost:11211</code></td>
+      <td>space separated list of <code>${host}:${port}</code></td>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.connectionfactory</td>
+      <td><code>net.spy.memcached.DefaultConnectionFactory</code></td>
+      <td>Any class that implements <code>net.spy.memcached.ConnectionFactory</code></td>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.expiration</td>
+      <td>the number of seconds in 30 days</td>
+      <td>the expiration time (in seconds)</td>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.asyncget</td>
+      <td><code>false</code></td>
+      <td>flag to enable/disable the async get</td>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.timeout</td>
+      <td><code>5</code></td>
+      <td>the timeout when using async get</td>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.timeoutunit</td>
+      <td><code>java.util.concurrent.TimeUnit.SECONDS</code></td>
+      <td>the timeout unit when using async get</td>
+    </tr>
+    <tr>
+      <td>org.mybatis.caches.memcached.compression</td>
+      <td><code>false</code></td>
+      <td>if true, objects will be GZIP compressed before putting them to Memcached</td>
+    </tr>
+  </table>
+
     <p>If users need to log cache operations, they can plug the Cache logging version:</p>
     <source><![CDATA[<mapper namespace="org.acme.FooMapper">
   <cache type="org.mybatis.caches.memcached.LoggingMemcachedCache" />
