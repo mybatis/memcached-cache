@@ -31,7 +31,7 @@
   <artifactId>mybatis-memcached</artifactId>
   <packaging>jar</packaging>
   <name>MyBatis Caches :: Memcached</name>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0-beta1-SNAPSHOT</version>
   <description>Memcached support for MyBatis Cache</description>
   <url>http://www.mybatis.org/caches/memcached/</url>
 
