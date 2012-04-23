@@ -29,7 +29,7 @@ final class ConnectionFactorySetter extends AbstractPropertySetter<ConnectionFac
      * Instantiates a String to ConnectionFactory setter.
      */
     public ConnectionFactorySetter() {
-        super("com.google.code.ibaguice.memcached.connectionfactory",
+        super("org.mybatis.caches.memcached.connectionfactory",
                 "connectionFactory",
                 new DefaultConnectionFactory());
     }

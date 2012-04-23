@@ -28,7 +28,7 @@ final class TimeUnitSetter extends AbstractPropertySetter<TimeUnit> {
      * Instantiates a String to TimeUnit setter.
      */
     public TimeUnitSetter() {
-        super("com.google.code.ibaguice.memcached.timeoutunit",
+        super("org.mybatis.caches.memcached.timeoutunit",
                 "timeUnit",
                 TimeUnit.SECONDS);
     }

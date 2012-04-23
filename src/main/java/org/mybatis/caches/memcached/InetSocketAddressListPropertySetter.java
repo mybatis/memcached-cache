@@ -33,7 +33,7 @@ final class InetSocketAddressListPropertySetter extends AbstractPropertySetter<L
      */
     @SuppressWarnings("serial")
     public InetSocketAddressListPropertySetter() {
-        super("com.google.code.ibaguice.memcached.servers",
+        super("org.mybatis.caches.memcached.servers",
                 "addresses",
                 new ArrayList<InetSocketAddress>(1){ { add(new InetSocketAddress("localhost", 11211)); } });
     }
