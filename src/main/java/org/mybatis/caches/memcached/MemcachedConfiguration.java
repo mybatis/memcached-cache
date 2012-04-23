@@ -183,8 +183,8 @@ final class MemcachedConfiguration {
         this.timeUnit = timeUnit;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -207,8 +207,8 @@ final class MemcachedConfiguration {
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object obj) {
@@ -241,8 +241,8 @@ final class MemcachedConfiguration {
         return o1 != null ? o1.equals(o2) : o2 == null;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
