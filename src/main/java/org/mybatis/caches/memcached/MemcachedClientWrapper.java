@@ -42,17 +42,17 @@ final class MemcachedClientWrapper {
     private final MemcachedClient client;
 
     public MemcachedClientWrapper() {
-        this.configuration = MemcachedConfigurationBuilder.getInstance().parseConfiguration();
+        configuration = MemcachedConfigurationBuilder.getInstance().parseConfiguration();
         try {
-            this.client = new MemcachedClient(this.configuration.getConnectionFactory(), this.configuration.getAddresses());
+            client = new MemcachedClient(configuration.getConnectionFactory(), configuration.getAddresses());
         } catch (IOException e) {
             String message = "Impossible to instantiate a new memecached client instance, see nested exceptions";
-            this.log.error(message, e);
+            log.error(message, e);
             throw new RuntimeException(message, e);
         }
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Running new Memcached client using " + this.configuration);
+        if (log.isDebugEnabled()) {
+            log.debug("Running new Memcached client using " + configuration);
         }
     }
 
@@ -63,9 +63,9 @@ final class MemcachedClientWrapper {
      * @return the proper string representation.
      */
     private String toKeyString(final Object key) {
-        String keyString = this.configuration.getKeyPrefix() + Integer.toHexString(key.hashCode());
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Object key '"
+        String keyString = configuration.getKeyPrefix() + Integer.toHexString(key.hashCode());
+        if (log.isDebugEnabled()) {
+            log.debug("Object key '"
                     + key
                     + "' converted in '"
                     + keyString
@@ -80,11 +80,11 @@ final class MemcachedClientWrapper {
      * @return
      */
     public Object getObject(Object key) {
-        String keyString = this.toKeyString(key);
-        Object ret = this.retrieve(keyString);
+        String keyString = toKeyString(key);
+        Object ret = retrieve(keyString);
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Retrived object ("
+        if (log.isDebugEnabled()) {
+            log.debug("Retrived object ("
                     + keyString
                     + ", "
                     + ret
@@ -102,32 +102,32 @@ final class MemcachedClientWrapper {
      */
     @SuppressWarnings("unchecked")
     private Set<String> getGroup(String groupKey) {
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Retrieving group with id '"
+        if (log.isDebugEnabled()) {
+            log.debug("Retrieving group with id '"
                     + groupKey
                     + "'");
         }
 
         Object groups = null;
         try {
-            groups = this.retrieve(groupKey);
+            groups = retrieve(groupKey);
         } catch (Exception e) {
-            this.log.error("Impossible to retrieve group '"
+            log.error("Impossible to retrieve group '"
                     + groupKey
                     + "' see nested exceptions", e);
         }
 
         if (groups == null) {
-            if (this.log.isDebugEnabled()) {
-                this.log.debug("Group '"
+            if (log.isDebugEnabled()) {
+                log.debug("Group '"
                         + groupKey
                         + "' not previously stored");
             }
             return null;
         }
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("retrieved group '"
+        if (log.isDebugEnabled()) {
+            log.debug("retrieved group '"
                     + groupKey
                     + "' with values "
                     + groups);
@@ -145,25 +145,25 @@ final class MemcachedClientWrapper {
     private Object retrieve(final String keyString) {
         Object retrieved = null;
 
-        if (this.configuration.isUsingAsyncGet()) {
+        if (configuration.isUsingAsyncGet()) {
             Future<Object> future;
-            if (this.configuration.isCompressionEnabled()) {
-                future = this.client.asyncGet(keyString, new CompressorTranscoder());
+            if (configuration.isCompressionEnabled()) {
+                future = client.asyncGet(keyString, new CompressorTranscoder());
             } else {
-                future = this.client.asyncGet(keyString);
+                future = client.asyncGet(keyString);
             }
 
             try {
-                retrieved = future.get(this.configuration.getTimeout(), this.configuration.getTimeUnit());
+                retrieved = future.get(configuration.getTimeout(), configuration.getTimeUnit());
             } catch (Exception e) {
                 future.cancel(false);
                 throw new CacheException(e);
             }
         } else {
-            if (this.configuration.isCompressionEnabled()) {
-                retrieved = this.client.get(keyString, new CompressorTranscoder());
+            if (configuration.isCompressionEnabled()) {
+                retrieved = client.get(keyString, new CompressorTranscoder());
             } else {
-                retrieved = this.client.get(keyString);
+                retrieved = client.get(keyString);
             }
         }
 
@@ -171,35 +171,35 @@ final class MemcachedClientWrapper {
     }
 
     public void putObject(Object key, Object value, String id) {
-        String keyString = this.toKeyString(key);
-        String groupKey = this.toKeyString(id);
+        String keyString = toKeyString(key);
+        String groupKey = toKeyString(id);
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Putting object ("
+        if (log.isDebugEnabled()) {
+            log.debug("Putting object ("
                     + keyString
                     + ", "
                     + value
                     + ")");
         }
 
-        this.storeInMemcached(keyString, value);
+        storeInMemcached(keyString, value);
 
         // add namespace key into memcached
-        Set<String> group = this.getGroup(groupKey);
+        Set<String> group = getGroup(groupKey);
         if (group == null) {
             group = new HashSet<String>();
         }
         group.add(keyString);
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Insert/Updating object ("
+        if (log.isDebugEnabled()) {
+            log.debug("Insert/Updating object ("
                     + groupKey
                     + ", "
                     + group
                     + ")");
         }
 
-        this.storeInMemcached(groupKey, group);
+        storeInMemcached(groupKey, group);
     }
 
     /**
@@ -216,62 +216,62 @@ final class MemcachedClientWrapper {
                     + "' that's non-serializable is not supported by Memcached");
         }
 
-        if (this.configuration.isCompressionEnabled()) {
-            this.client.set(keyString, this.configuration.getExpiration(), value, new CompressorTranscoder());
+        if (configuration.isCompressionEnabled()) {
+            client.set(keyString, configuration.getExpiration(), value, new CompressorTranscoder());
         } else {
-            this.client.set(keyString, this.configuration.getExpiration(), value);
+            client.set(keyString, configuration.getExpiration(), value);
         }
     }
 
     public Object removeObject(Object key) {
         String keyString = toKeyString(key);
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Removing object '"
+        if (log.isDebugEnabled()) {
+            log.debug("Removing object '"
                     + keyString
                     + "'");
         }
 
-        Object result = this.getObject(key);
+        Object result = getObject(key);
         if (result != null) {
-            this.client.delete(keyString);
+            client.delete(keyString);
         }
         return result;
     }
 
     public void removeGroup(String id) {
-        String groupKey = this.toKeyString(id);
+        String groupKey = toKeyString(id);
 
-        Set<String> group = this.getGroup(groupKey);
+        Set<String> group = getGroup(groupKey);
 
         if (group == null) {
-            if (this.log.isDebugEnabled()) {
-                this.log.debug("No need to flush cached entries for group '"
+            if (log.isDebugEnabled()) {
+                log.debug("No need to flush cached entries for group '"
                         + id
                         + "' because is empty");
             }
             return;
         }
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Flushing keys: " + group);
+        if (log.isDebugEnabled()) {
+            log.debug("Flushing keys: " + group);
         }
 
         for (String key : group) {
-            this.client.delete(key);
+            client.delete(key);
         }
 
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("Flushing group: " + groupKey);
+        if (log.isDebugEnabled()) {
+            log.debug("Flushing group: " + groupKey);
         }
 
-        this.client.delete(groupKey);
+        client.delete(groupKey);
     }
 
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        this.client.shutdown(this.configuration.getTimeout(), this.configuration.getTimeUnit());
+        client.shutdown(configuration.getTimeout(), configuration.getTimeUnit());
     }
 
 }
