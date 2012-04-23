@@ -36,7 +36,7 @@ final class MemcachedConfigurationBuilder {
     /**
      *
      */
-    private static final String MEMCACHED_RESOURCE = "/memcached.properties";
+    private static final String MEMCACHED_RESOURCE = "memcached.properties";
 
     /**
      * Return this class instance.
@@ -79,7 +79,7 @@ final class MemcachedConfigurationBuilder {
         Properties config = new Properties();
 
         // load the properties specified from /memcached.properties, if present
-        InputStream input = getClass().getResourceAsStream(MEMCACHED_RESOURCE);
+        InputStream input = getClass().getClassLoader().getResourceAsStream(MEMCACHED_RESOURCE);
         if (input != null) {
             try {
                 config.load(input);
