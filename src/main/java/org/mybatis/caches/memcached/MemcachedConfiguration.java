@@ -15,6 +15,8 @@
  */
 package org.mybatis.caches.memcached;
 
+import static java.lang.String.format;
+
 import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -186,22 +188,22 @@ final class MemcachedConfiguration {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((addresses == null) ? 0 : addresses.hashCode());
-        result = prime * result + (compressionEnabled ? 1231 : 1237);
-        result = prime
-                * result
-                + ((connectionFactory == null) ? 0 : connectionFactory
-                        .hashCode());
-        result = prime * result + expiration;
-        result = prime * result
-                + ((keyPrefix == null) ? 0 : keyPrefix.hashCode());
-        result = prime * result
-                + ((timeUnit == null) ? 0 : timeUnit.hashCode());
-        result = prime * result + timeout;
-        result = prime * result + (usingAsyncGet ? 1231 : 1237);
+        return hash(1, 31, addresses, compressionEnabled, connectionFactory, expiration, keyPrefix, timeUnit, timeout, usingAsyncGet);
+    }
+
+    /**
+     * Computes a hashCode given the input objects.
+     *
+     * @param initialNonZeroOddNumber a non-zero, odd number used as the initial value.
+     * @param multiplierNonZeroOddNumber a non-zero, odd number used as the multiplier.
+     * @param objs the objects to compute hash code.
+     * @return the computed hashCode.
+     */
+    public static int hash(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object...objs) {
+        int result = initialNonZeroOddNumber;
+        for (Object obj : objs) {
+            result = multiplierNonZeroOddNumber * result + (obj != null ? obj.hashCode() : 0);
+        }
         return result;
     }
 
@@ -210,42 +212,33 @@ final class MemcachedConfiguration {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
+        }
+
         MemcachedConfiguration other = (MemcachedConfiguration) obj;
-        if (addresses == null) {
-            if (other.addresses != null)
-                return false;
-        } else if (!addresses.equals(other.addresses))
-            return false;
-        if (compressionEnabled != other.compressionEnabled)
-            return false;
-        if (connectionFactory == null) {
-            if (other.connectionFactory != null)
-                return false;
-        } else if (!connectionFactory.equals(other.connectionFactory))
-            return false;
-        if (expiration != other.expiration)
-            return false;
-        if (keyPrefix == null) {
-            if (other.keyPrefix != null)
-                return false;
-        } else if (!keyPrefix.equals(other.keyPrefix))
-            return false;
-        if (timeUnit == null) {
-            if (other.timeUnit != null)
-                return false;
-        } else if (!timeUnit.equals(other.timeUnit))
-            return false;
-        if (timeout != other.timeout)
-            return false;
-        if (usingAsyncGet != other.usingAsyncGet)
-            return false;
-        return true;
+        return eq(addresses, other.addresses)
+            && eq(compressionEnabled, other.compressionEnabled)
+            && eq(connectionFactory, other.connectionFactory)
+            && eq(expiration, other.expiration)
+            && eq(keyPrefix, other.keyPrefix)
+            && eq(timeUnit, other.timeUnit)
+            && eq(timeout, other.timeout)
+            && eq(usingAsyncGet, other.usingAsyncGet);
+    }
+
+    /**
+     * Verifies input objects are equal.
+     *
+     * @param o1 the first argument to compare
+     * @param o2 the second argument to compare
+     * @return true, if the input arguments are equal, false otherwise.
+     */
+    private static <O> boolean eq( O o1, O o2 ) {
+        return o1 != null ? o1.equals(o2) : o2 == null;
     }
 
     /* (non-Javadoc)
@@ -253,12 +246,8 @@ final class MemcachedConfiguration {
      */
     @Override
     public String toString() {
-        return "MemcachedConfiguration [addresses=" + addresses
-                + ", compressionEnabled=" + compressionEnabled
-                + ", connectionFactory=" + connectionFactory + ", expiration="
-                + expiration + ", keyPrefix=" + keyPrefix + ", timeUnit="
-                + timeUnit + ", timeout=" + timeout + ", usingAsyncGet="
-                + usingAsyncGet + "]";
+        return format( "MemcachedConfiguration [addresses=%s, compressionEnabled=%s, connectionFactory=%s, , expiration=%s, keyPrefix=%s, timeUnit=%s, timeout=%s, usingAsyncGet=%s]",
+                       addresses, compressionEnabled, connectionFactory, expiration, keyPrefix, timeUnit, timeout, usingAsyncGet );
     }
 
 }
