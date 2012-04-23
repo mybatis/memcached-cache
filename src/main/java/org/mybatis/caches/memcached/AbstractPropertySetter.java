@@ -102,27 +102,27 @@ abstract class AbstractPropertySetter<T> {
      * @param memcachedConfiguration the {@link MemcachedConfiguration}
      */
     public final void set(Properties config, MemcachedConfiguration memcachedConfiguration) {
-        String propertyValue = config.getProperty(this.propertyKey);
+        String propertyValue = config.getProperty(propertyKey);
         T value;
 
         try {
             value = this.convert(propertyValue);
             if (value == null) {
-                value = this.defaultValue;
+                value = defaultValue;
             }
         } catch (Throwable e) {
-            value = this.defaultValue;
+            value = defaultValue;
         }
 
         try {
-            this.propertyWriterMethod.invoke(memcachedConfiguration, value);
+            propertyWriterMethod.invoke(memcachedConfiguration, value);
         } catch (Exception e) {
             throw new RuntimeException("Impossible to set property '"
-                    + this.propertyName
+                    + propertyName
                     + "' with value '"
                     + value
                     + "', extracted from ('"
-                    + this.propertyKey
+                    + propertyKey
                     + "'="
                     + propertyValue
                     + ")", e);
