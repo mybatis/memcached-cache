@@ -23,6 +23,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * HOW TO RUN THE TEST
+ * 
+ * Install memcached (in ubuntu type sudo apt-get install memcached).
+ * Run.
+ * 
  * @version $Id: EhcacheTestCase.java 4585 2012-01-17 20:40:41Z eduardo.macarron $
  */
 public final class MemcachedTestCase {
