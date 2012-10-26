@@ -33,10 +33,14 @@ final class MemcachedConfigurationBuilder {
      */
     private static final MemcachedConfigurationBuilder INSTANCE = new MemcachedConfigurationBuilder();
 
+    private static final String SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME = "memcached.properties.filename";
+
     /**
      *
      */
     private static final String MEMCACHED_RESOURCE = "memcached.properties";
+
+    private final String memcachedPropertiesFilename;
 
     /**
      * Return this class instance.
@@ -56,6 +60,8 @@ final class MemcachedConfigurationBuilder {
      * Hidden constructor, this class can't be instantiated.
      */
     private MemcachedConfigurationBuilder() {
+        memcachedPropertiesFilename = System.getProperty(SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME, MEMCACHED_RESOURCE);
+
         settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.keyprefix", "keyPrefix", "_mybatis_"));
 
         settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
@@ -88,13 +94,13 @@ final class MemcachedConfigurationBuilder {
         Properties config = new Properties();
 
         // load the properties specified from /memcached.properties, if present
-        InputStream input = classLoader.getResourceAsStream(MEMCACHED_RESOURCE);
+        InputStream input = classLoader.getResourceAsStream(memcachedPropertiesFilename);
         if (input != null) {
             try {
                 config.load(input);
             } catch (IOException e) {
                 throw new RuntimeException("An error occurred while reading classpath property '"
-                        + MEMCACHED_RESOURCE
+                        + memcachedPropertiesFilename
                         + "', see nested exceptions", e);
             } finally {
                 try {
