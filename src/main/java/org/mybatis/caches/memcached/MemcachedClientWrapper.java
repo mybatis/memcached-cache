@@ -63,7 +63,7 @@ final class MemcachedClientWrapper {
      * @return the proper string representation.
      */
     private String toKeyString(final Object key) {
-        String keyString = configuration.getKeyPrefix() + Integer.toHexString(key.hashCode());
+        String keyString = configuration.getKeyPrefix() + key; // issue #660, key collision
         if (log.isDebugEnabled()) {
             log.debug("Object key '"
                     + key
