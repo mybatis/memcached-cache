@@ -19,50 +19,47 @@
   version: $Id$
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
-    <version>15</version>
+    <version>17-SNAPSHOT</version>
   </parent>
 
-  <modelVersion>4.0.0</modelVersion>
   <groupId>org.mybatis.caches</groupId>
   <artifactId>mybatis-memcached</artifactId>
-  <packaging>jar</packaging>
-  <name>MyBatis Caches :: Memcached</name>
   <version>1.0.0-beta2-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>MyBatis Caches :: Memcached</name>
   <description>Memcached support for MyBatis Cache</description>
   <url>http://www.mybatis.org/caches/memcached/</url>
 
   <scm>
-    <url>scm:svn:http://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</url>
-    <connection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</connection>
-    <developerConnection>scm:svn:https://mybatis.googlecode.com/svn/sub-projects/caches/trunk/memcached</developerConnection>
+    <url>http://github.com/mybatis/memcached-cache</url>
+    <connection>scm:git:ssh://github.com/mybatis/memcached-cache.git</connection>
+    <developerConnection>scm:git:git+ssh://git@github.com/mybatis/memcached-cache.git</developerConnection>
+    <tag>HEAD</tag>
   </scm>
+  <issueManagement>
+    <system>GitHub Issue Management</system>
+    <url>https://github.com/mybatis/memcached-cache/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/memcached-cache/guice</url>
+  </ciManagement>
   <distributionManagement>
-    <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
     <site>
-      <id>mybatis.site</id>
-      <!--
-       | make it overridible, FTP is terribly slow when launched from Maven Wagon
-       | an alternative strategy could be deploying the site locally
-       |
-       |    -Dsite.deploymentUrl=file://...
-       |
-       | then async redeploying it via Filezilla/whatelese
-      -->
-      <url>${site.deploymentUrl}</url>
+      <id>github</id>
+      <url>gitsite:git@github.com/mybatis/memcached-cache.git</url>
     </site>
   </distributionManagement>
 
   <properties>
     <findbugs.onlyAnalyze>org.mybatis.caches.memcached.*</findbugs.onlyAnalyze>
     <gcu.product>Cache</gcu.product>
-    <!--
-     | see distributionManagement.site.url
-    -->
-    <site.deploymentUrl>ftp://${mybatis.host}/caches/memcached/</site.deploymentUrl>
   </properties>
 
   <dependencies>
