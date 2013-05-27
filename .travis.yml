@@ -3,3 +3,15 @@ jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
+after_success:
+  - "git clone -b travis `git config --get remote.origin.url` target/travis"
+  - "mvn deploy --settings target/travis/settings.xml"
+
+branches:
+  except:
+    - travis
+
+env:
+  global:
+    - secure: "gSb0ypSPWA06Fhf7q8cNTdrAQuFg2lhUCnCBCmShyVf6PnB6oCiGnWlrc7/p\npycxgOGDO/3mon/u76Ussmfyt+DSo6UkMaRqj0bGSuUeTbIcvmjbQw/4TddG\nbBHjKALnPamPUyy4+fzvTjGFPDgGWGV9EKM/DOHktqHv10tGO4g="
+    - secure: "jKTLoweBTuKzITNWspi119kYsTjQIadp4sInlgao++HQGlFQwymqaElzSzXF\nwEggqFolaNVUt6/npM3i9k3i+8x6hENSinkBdT/edJd4R+E+eK/NRiai3Ivm\n1hRDnLKfDB0nLwy2gbHtwJ1t/uNgWNgMn9WIzt5O71/7RquslnY="
