@@ -57,13 +57,13 @@ final class MemcachedClientWrapper {
     }
 
     /**
-     * Converts the iBatis object key in the proper string representation.
-     *
-     * @param key the iBatis object key.
+     * Converts the MyBatis object key in the proper string representation.
+     * 
+     * @param key the MyBatis object key.
      * @return the proper string representation.
      */
     private String toKeyString(final Object key) {
-        String keyString = configuration.getKeyPrefix() + key; // issue #660, key collision
+	String keyString = configuration.getKeyPrefix() + StringUtils.sha1Hex(key.toString()); // issue #1, key too long
         if (log.isDebugEnabled()) {
             log.debug("Object key '"
                     + key
