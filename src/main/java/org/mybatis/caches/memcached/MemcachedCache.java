@@ -1,5 +1,5 @@
 /*
- *    Copyright 2012 The MyBatis Team
+ *    Copyright 2012 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,14 +16,13 @@
 package org.mybatis.caches.memcached;
 
 import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.apache.ibatis.cache.Cache;
 
 /**
  * The Memcached-based Cache implementation.
  *
- * @version $Id$
+ * @author Simone Tripodi
  */
 public final class MemcachedCache implements Cache {
 
@@ -32,7 +31,7 @@ public final class MemcachedCache implements Cache {
     /**
      * The {@link ReadWriteLock}.
      */
-    private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    private final ReadWriteLock readWriteLock = new DummyReadWriteLock();
 
     /**
      * The cache id.

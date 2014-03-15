@@ -1,5 +1,5 @@
 /*
- *    Copyright 2012 The MyBatis Team
+ *    Copyright 2012 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,8 +28,7 @@ import java.util.Properties;
  * Converts a keyed property string in the Config to a proper Java
  * object representation.
  *
- * @version $Id$
- * @param <T>
+ * @author Simone Tripodi
  */
 abstract class AbstractPropertySetter<T> {
 
