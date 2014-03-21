@@ -126,5 +126,63 @@
 </parameter>
 </method>
 </class>
+<class name="StringUtils"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="StringUtils"
+ type="org.mybatis.caches.memcached.StringUtils"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="join"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="array" type="java.lang.Object[]">
+</parameter>
+<parameter name="separator" type="java.lang.String">
+</parameter>
+</method>
+<method name="md5Hex"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="java.lang.String">
+</parameter>
+</method>
+<method name="sha1Hex"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="java.lang.String">
+</parameter>
+</method>
+</class>
 </package>
 </api>

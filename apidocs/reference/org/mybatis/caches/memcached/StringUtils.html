@@ -55,7 +55,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.ico" />
 <title>
 
-  MemcachedCache
+  StringUtils
 
 
 | MyBatis Caches :: Memcached
@@ -154,8 +154,8 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../org/mybatis/caches/memcached/LoggingMemcachedCache.html">LoggingMemcachedCache</a></li>
-          <li class="selected api apilevel-"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html">MemcachedCache</a></li>
-          <li class="api apilevel-"><a href="../../../../org/mybatis/caches/memcached/StringUtils.html">StringUtils</a></li>
+          <li class="api apilevel-"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html">MemcachedCache</a></li>
+          <li class="selected api apilevel-"><a href="../../../../org/mybatis/caches/memcached/StringUtils.html">StringUtils</a></li>
       </ul>
     </li>
               
@@ -198,13 +198,6 @@
 <div id="api-info-block">
 
 
-
-  
-   
-  
-  
-  
-  
 
   
    
@@ -257,10 +250,10 @@ Summary:
 <div id="jd-header">
     public
      
-    final 
+     
     
     class
-<h1>MemcachedCache</h1>
+<h1>StringUtils</h1>
 
 
 
@@ -271,11 +264,6 @@ Summary:
   
 
   
-  
-      implements 
-      
-        Cache 
-      
   
   
 
@@ -298,7 +286,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">org.mybatis.caches.memcached.MemcachedCache</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mybatis.caches.memcached.StringUtils</td>
     </tr>
     
 
@@ -314,7 +302,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>The Memcached-based Cache implementation.</p>
+<p>Got from https://github.com/raykrueger/hibernate-memcached</p>
 
 
 
@@ -380,10 +368,8 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#MemcachedCache(java.lang.String)">MemcachedCache</a></span>(String id)</nobr>
+        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/StringUtils.html#StringUtils()">StringUtils</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Builds a new Memcached-based Cache.</div>
-  
   </td></tr>
 
 
@@ -406,54 +392,13 @@ Summary:
             
             
             
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#clear()">clear</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
+            static
             
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#getId()">getId</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/StringUtils.html#join(java.lang.Object[], java.lang.String)">join</a></span>(Object[] array, String separator)</nobr>
         
-        <div class="jd-descrdiv">
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#getObject(java.lang.Object)">getObject</a></span>(Object key)</nobr>
-        
-        <div class="jd-descrdiv">
-</div>
-  
   </td></tr>
 
 
@@ -463,16 +408,13 @@ Summary:
             
             
             
+            static
             
-            
-            ReadWriteLock</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#getReadWriteLock()">getReadWriteLock</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/StringUtils.html#md5Hex(java.lang.String)">md5Hex</a></span>(String data)</nobr>
         
-        <div class="jd-descrdiv">
-</div>
-  
   </td></tr>
 
 
@@ -482,54 +424,13 @@ Summary:
             
             
             
+            static
             
-            
-            int</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#getSize()">getSize</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/StringUtils.html#sha1Hex(java.lang.String)">sha1Hex</a></span>(String data)</nobr>
         
-        <div class="jd-descrdiv">
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#putObject(java.lang.Object, java.lang.Object)">putObject</a></span>(Object key, Object value)</nobr>
-        
-        <div class="jd-descrdiv">
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../org/mybatis/caches/memcached/MemcachedCache.html#removeObject(java.lang.Object)">removeObject</a></span>(Object key)</nobr>
-        
-        <div class="jd-descrdiv">
-</div>
-  
   </td></tr>
 
 
@@ -749,144 +650,6 @@ From class
 </td></tr>
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.apache.ibatis.cache.Cache" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.apache.ibatis.cache.Cache-trigger"
-          src="../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  org.apache.ibatis.cache.Cache
-
-<div id="inherited-methods-org.apache.ibatis.cache.Cache">
-  <div id="inherited-methods-org.apache.ibatis.cache.Cache-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.apache.ibatis.cache.Cache-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">clear</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getId</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getObject</span>(Object arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            ReadWriteLock</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getReadWriteLock</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            int</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getSize</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">putObject</span>(Object arg0, Object arg1)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">removeObject</span>(Object arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
 </table>
 
 
@@ -921,7 +684,7 @@ From interface
 
 
 
-<A NAME="MemcachedCache(java.lang.String)"></A>
+<A NAME="StringUtils()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -933,8 +696,8 @@ From interface
          
         
       </span>
-      <span class="sympad">MemcachedCache</span>
-      <span class="normal">(String id)</span>
+      <span class="sympad">StringUtils</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -946,17 +709,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Builds a new Memcached-based Cache.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>id</td>
-          <td>the Mapper id.
-</td>
-        </tr>
-      </table>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
@@ -977,52 +730,20 @@ From interface
 
 
 
-<A NAME="clear()"></A>
+<A NAME="join(java.lang.Object[], java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">clear</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getId()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
+        static 
          
          
          
         String
       </span>
-      <span class="sympad">getId</span>
-      <span class="normal">()</span>
+      <span class="sympad">join</span>
+      <span class="normal">(Object[] array, String separator)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1034,27 +755,26 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
 
 
-<A NAME="getObject(java.lang.Object)"></A>
+<A NAME="md5Hex(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
+        static 
          
          
          
-         
-        Object
+        String
       </span>
-      <span class="sympad">getObject</span>
-      <span class="normal">(Object key)</span>
+      <span class="sympad">md5Hex</span>
+      <span class="normal">(String data)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1066,27 +786,26 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
 
 
-<A NAME="getReadWriteLock()"></A>
+<A NAME="sha1Hex(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
+        static 
          
          
          
-         
-        ReadWriteLock
+        String
       </span>
-      <span class="sympad">getReadWriteLock</span>
-      <span class="normal">()</span>
+      <span class="sympad">sha1Hex</span>
+      <span class="normal">(String data)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1098,104 +817,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getSize()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        int
-      </span>
-      <span class="sympad">getSize</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="putObject(java.lang.Object, java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">putObject</span>
-      <span class="normal">(Object key, Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="removeObject(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Object
-      </span>
-      <span class="sympad">removeObject</span>
-      <span class="normal">(Object key)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>
-</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
