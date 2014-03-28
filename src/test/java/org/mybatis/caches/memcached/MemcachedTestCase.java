@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,4 +77,14 @@ public final class MemcachedTestCase {
         assertNull(cache.getObject(4));
     }
 
+    @Test
+    public void shouldAcceptAKeyBiggerThan250() {
+        char[] keyChar = new char[1024];
+        Arrays.fill(keyChar, 'X');
+        String key = new String(keyChar);
+        String value = "value";        
+        cache.putObject(key, value);
+        assertEquals(value, cache.getObject(key));
+    }
+    
 }

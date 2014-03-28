@@ -27,34 +27,6 @@ public class StringUtils {
 
     private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
-    public static String join(Object[] array, String separator) {
-        if (array == null) {
-            return null;
-        }
-        int arraySize = array.length;
-        StringBuilder buffer = new StringBuilder();
-
-        for (int i = 0; i < arraySize; i++) {
-            if (i > 0) {
-                buffer.append(separator);
-            }
-            if (array[i] != null) {
-                buffer.append(array[i]);
-            }
-        }
-        return buffer.toString();
-    }
-
-    public static String md5Hex(String data) {
-        if (data == null) {
-            throw new IllegalArgumentException("data must not be null");
-        }
-
-        byte[] bytes = digest("MD5", data);
-
-        return toHexString(bytes);
-    }
-
     public static String sha1Hex(String data) {
         if (data == null) {
             throw new IllegalArgumentException("data must not be null");
