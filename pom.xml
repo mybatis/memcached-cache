@@ -55,6 +55,7 @@
   </distributionManagement>
 
   <properties>
+    <clirr.comparisonVersion>1.0.0</clirr.comparisonVersion>
     <findbugs.onlyAnalyze>org.mybatis.caches.memcached.*</findbugs.onlyAnalyze>
     <gcu.product>Cache</gcu.product>
   </properties>
