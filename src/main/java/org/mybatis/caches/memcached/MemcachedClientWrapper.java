@@ -21,8 +21,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Future;
 
+import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
 
+import net.spy.memcached.auth.AuthDescriptor;
+import net.spy.memcached.auth.PlainCallbackHandler;
 import org.apache.ibatis.cache.CacheException;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -44,7 +47,14 @@ final class MemcachedClientWrapper {
     public MemcachedClientWrapper() {
         configuration = MemcachedConfigurationBuilder.getInstance().parseConfiguration();
         try {
-            client = new MemcachedClient(configuration.getConnectionFactory(), configuration.getAddresses());
+            if (configuration.isUsingSASL()) {
+                AuthDescriptor ad = new AuthDescriptor(new String[]{"PLAIN"}, new PlainCallbackHandler(configuration.getUsername(), configuration.getPassword()));
+                client = new MemcachedClient(new ConnectionFactoryBuilder()
+                        .setProtocol(ConnectionFactoryBuilder.Protocol.BINARY)
+                        .setAuthDescriptor(ad).build(), configuration.getAddresses());
+            } else {
+                client = new MemcachedClient(configuration.getConnectionFactory(), configuration.getAddresses());
+            }
         } catch (IOException e) {
             String message = "Impossible to instantiate a new memecached client instance, see nested exceptions";
             log.error(message, e);

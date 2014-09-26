@@ -63,6 +63,8 @@ final class MemcachedConfigurationBuilder {
         memcachedPropertiesFilename = System.getProperty(SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME, MEMCACHED_RESOURCE);
 
         settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.keyprefix", "keyPrefix", "_mybatis_"));
+        settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.username", "username", ""));
+        settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.password", "password", ""));
 
         settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
         settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.timeout", "timeout", 5));
@@ -70,6 +72,7 @@ final class MemcachedConfigurationBuilder {
 
         settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.asyncget", "usingAsyncGet", false));
         settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.compression", "compressionEnabled", false));
+        settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.sasl", "usingSASL", true));
 
         settersRegistry.add(new InetSocketAddressListPropertySetter());
         settersRegistry.add(new ConnectionFactorySetter());
