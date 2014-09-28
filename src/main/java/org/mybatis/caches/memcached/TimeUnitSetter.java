@@ -37,7 +37,7 @@ final class TimeUnitSetter extends AbstractPropertySetter<TimeUnit> {
      * {@inheritDoc}
      */
     @Override
-    protected TimeUnit convert(String property) throws Throwable {
+    protected TimeUnit convert(String property) throws Exception {
         return TimeUnit.valueOf(property.toUpperCase());
     }
 

@@ -37,7 +37,7 @@ final class BooleanPropertySetter extends AbstractPropertySetter<Boolean> {
      * {@inheritDoc}
      */
     @Override
-    protected Boolean convert(String property) throws Throwable {
+    protected Boolean convert(String property) throws Exception {
         return Boolean.valueOf(property);
     }
 

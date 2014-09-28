@@ -109,7 +109,7 @@ abstract class AbstractPropertySetter<T> {
             if (value == null) {
                 value = defaultValue;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             value = defaultValue;
         }
 
@@ -133,8 +133,8 @@ abstract class AbstractPropertySetter<T> {
      *
      * @param value the value has to be converted.
      * @return the converted value.
-     * @throws Throwable if any error occurs.
+     * @throws Exception if any error occurs.
      */
-    protected abstract T convert(String value) throws Throwable;
+    protected abstract T convert(String value) throws Exception;
 
 }
