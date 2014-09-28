@@ -17,7 +17,6 @@ package org.mybatis.caches.memcached;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -125,7 +124,7 @@ final class MemcachedClientWrapper {
                         + groupKey
                         + "' not previously stored");
             }
-            return Collections.emptySet();
+            return new HashSet<String>();
         }
 
         if (LOG.isDebugEnabled()) {
@@ -188,9 +187,6 @@ final class MemcachedClientWrapper {
 
         // add namespace key into memcached
         Set<String> group = getGroup(groupKey);
-        if (group == null) {
-            group = new HashSet<String>();
-        }
         group.add(keyString);
 
         if (LOG.isDebugEnabled()) {
