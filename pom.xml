@@ -45,7 +45,7 @@
   </issueManagement>
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.org/memcached-cache/guice</url>
+    <url>https://travis-ci.org/mybatis/memcached-cache</url>
   </ciManagement>
   <distributionManagement>
     <site>

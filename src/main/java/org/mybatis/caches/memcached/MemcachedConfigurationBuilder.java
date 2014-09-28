@@ -43,15 +43,6 @@ final class MemcachedConfigurationBuilder {
     private final String memcachedPropertiesFilename;
 
     /**
-     * Return this class instance.
-     *
-     * @return this class instance.
-     */
-    public static MemcachedConfigurationBuilder getInstance() {
-        return INSTANCE;
-    }
-
-    /**
      * The setters used to extract properties.
      */
     private final List<AbstractPropertySetter<?>> settersRegistry = new ArrayList<AbstractPropertySetter<?>>();
@@ -73,6 +64,15 @@ final class MemcachedConfigurationBuilder {
 
         settersRegistry.add(new InetSocketAddressListPropertySetter());
         settersRegistry.add(new ConnectionFactorySetter());
+    }
+
+    /**
+     * Return this class instance.
+     *
+     * @return this class instance.
+     */
+    public static MemcachedConfigurationBuilder getInstance() {
+        return INSTANCE;
     }
 
     /**

@@ -23,9 +23,13 @@ import java.security.NoSuchAlgorithmException;
  * 
  * @author Ray Krueger
  */
-public class StringUtils {
+public final class StringUtils {
 
     private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
+    private StringUtils() {
+        // Prevent Instantiation
+    }
 
     public static String sha1Hex(String data) {
         if (data == null) {

@@ -35,7 +35,7 @@ final class MemcachedClientWrapper {
     /**
      * This class log.
      */
-    private final Log log = LogFactory.getLog(MemcachedCache.class);
+    private static final Log LOG = LogFactory.getLog(MemcachedCache.class);
 
     private final MemcachedConfiguration configuration;
 
@@ -47,12 +47,12 @@ final class MemcachedClientWrapper {
             client = new MemcachedClient(configuration.getConnectionFactory(), configuration.getAddresses());
         } catch (IOException e) {
             String message = "Impossible to instantiate a new memecached client instance, see nested exceptions";
-            log.error(message, e);
+            LOG.error(message, e);
             throw new RuntimeException(message, e);
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Running new Memcached client using " + configuration);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Running new Memcached client using " + configuration);
         }
     }
 
@@ -63,9 +63,10 @@ final class MemcachedClientWrapper {
      * @return the proper string representation.
      */
     private String toKeyString(final Object key) {
-        String keyString = configuration.getKeyPrefix() + StringUtils.sha1Hex(key.toString()); // issue #1, key too long
-        if (log.isDebugEnabled()) {
-            log.debug("Object key '"
+        // issue #1, key too long
+        String keyString = configuration.getKeyPrefix() + StringUtils.sha1Hex(key.toString());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Object key '"
                     + key
                     + "' converted in '"
                     + keyString
@@ -83,8 +84,8 @@ final class MemcachedClientWrapper {
         String keyString = toKeyString(key);
         Object ret = retrieve(keyString);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Retrived object ("
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Retrived object ("
                     + keyString
                     + ", "
                     + ret
@@ -102,8 +103,8 @@ final class MemcachedClientWrapper {
      */
     @SuppressWarnings("unchecked")
     private Set<String> getGroup(String groupKey) {
-        if (log.isDebugEnabled()) {
-            log.debug("Retrieving group with id '"
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Retrieving group with id '"
                     + groupKey
                     + "'");
         }
@@ -112,22 +113,22 @@ final class MemcachedClientWrapper {
         try {
             groups = retrieve(groupKey);
         } catch (Exception e) {
-            log.error("Impossible to retrieve group '"
+            LOG.error("Impossible to retrieve group '"
                     + groupKey
                     + "' see nested exceptions", e);
         }
 
         if (groups == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Group '"
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Group '"
                         + groupKey
                         + "' not previously stored");
             }
-            return null;
+            return new HashSet<String>();
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("retrieved group '"
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("retrieved group '"
                     + groupKey
                     + "' with values "
                     + groups);
@@ -174,8 +175,8 @@ final class MemcachedClientWrapper {
         String keyString = toKeyString(key);
         String groupKey = toKeyString(id);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Putting object ("
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Putting object ("
                     + keyString
                     + ", "
                     + value
@@ -186,13 +187,10 @@ final class MemcachedClientWrapper {
 
         // add namespace key into memcached
         Set<String> group = getGroup(groupKey);
-        if (group == null) {
-            group = new HashSet<String>();
-        }
         group.add(keyString);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Insert/Updating object ("
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Insert/Updating object ("
                     + groupKey
                     + ", "
                     + group
@@ -226,8 +224,8 @@ final class MemcachedClientWrapper {
     public Object removeObject(Object key) {
         String keyString = toKeyString(key);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Removing object '"
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Removing object '"
                     + keyString
                     + "'");
         }
@@ -245,24 +243,24 @@ final class MemcachedClientWrapper {
         Set<String> group = getGroup(groupKey);
 
         if (group == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("No need to flush cached entries for group '"
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("No need to flush cached entries for group '"
                         + id
                         + "' because is empty");
             }
             return;
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Flushing keys: " + group);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Flushing keys: " + group);
         }
 
         for (String key : group) {
             client.delete(key);
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Flushing group: " + groupKey);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Flushing group: " + groupKey);
         }
 
         client.delete(groupKey);
@@ -270,8 +268,8 @@ final class MemcachedClientWrapper {
 
     @Override
     protected void finalize() throws Throwable {
-        super.finalize();
         client.shutdown(configuration.getTimeout(), configuration.getTimeUnit());
+        super.finalize();
     }
 
 }

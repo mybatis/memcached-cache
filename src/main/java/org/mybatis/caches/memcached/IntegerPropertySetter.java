@@ -37,7 +37,7 @@ final class IntegerPropertySetter extends AbstractPropertySetter<Integer> {
      * {@inheritDoc}
      */
     @Override
-    protected Integer convert(String property) throws Throwable {
+    protected Integer convert(String property) throws Exception {
         return Integer.valueOf(property);
     }
 

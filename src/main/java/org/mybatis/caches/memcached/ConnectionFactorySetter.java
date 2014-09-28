@@ -38,7 +38,7 @@ final class ConnectionFactorySetter extends AbstractPropertySetter<ConnectionFac
      * {@inheritDoc}
      */
     @Override
-    protected ConnectionFactory convert(String property) throws Throwable {
+    protected ConnectionFactory convert(String property) throws Exception {
         Class<?> clazz = Class.forName(property);
         if (!ConnectionFactory.class.isAssignableFrom(clazz)) {
             throw new IllegalArgumentException("Class '"
