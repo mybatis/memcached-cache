@@ -16,7 +16,7 @@
 package org.mybatis.caches.memcached;
 
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.spy.memcached.AddrUtil;
@@ -28,18 +28,19 @@ import net.spy.memcached.AddrUtil;
  */
 final class InetSocketAddressListPropertySetter extends AbstractPropertySetter<List<InetSocketAddress>> {
 
+    private static final List<InetSocketAddress> SOCKET_LIST = Arrays.asList(new InetSocketAddress("localhost", 11211));
+
     /**
      * Instantiates a String to List&lt;InetSocketAddress&gt; setter.
      */
-    @SuppressWarnings("serial")
     public InetSocketAddressListPropertySetter() {
         super("org.mybatis.caches.memcached.servers",
                 "addresses",
-                new ArrayList<InetSocketAddress>(1){ { add(new InetSocketAddress("localhost", 11211)); } });
+                SOCKET_LIST);
     }
 
     @Override
-    protected List<InetSocketAddress> convert(String property) throws Throwable {
+    protected List<InetSocketAddress> convert(String property) throws Exception {
         return AddrUtil.getAddresses(property);
     }
 
