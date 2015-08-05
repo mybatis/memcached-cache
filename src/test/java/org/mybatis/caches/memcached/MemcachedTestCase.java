@@ -19,7 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -86,5 +89,57 @@ public final class MemcachedTestCase {
         cache.putObject(key, value);
         assertEquals(value, cache.getObject(key));
     }
-    
+
+	/**
+	 * The group should contain all keys even if race conditions are present
+	 */
+	@Test
+	public void groupShouldContainAllKeys() {
+
+		long threadTestCount = 20;
+		long valuesPerThread = 100;
+		String mapperName = "GroupTest";
+
+		MemcachedCache newCache = new MemcachedCache(mapperName);
+		newCache.clear();
+
+		/*
+		 * Create, run & wait 'threadTestCount' concurrent threads
+		 */
+		long i = 0;
+
+		List<Thread> threads = new ArrayList<Thread>();
+
+		while (i < threadTestCount) {
+			Thread thread = new GroupTestThread(newCache, valuesPerThread);
+			thread.start();
+			threads.add(thread);
+			i++;
+		}
+
+		for (Thread thread : threads) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+			}
+		}
+
+		/*
+		 * Since each thread will create 'threadTestCount' values there should be ( 'valuesPerThread' * 'threadTestCount' ) elements in the group, independently
+		 * of any race condition.
+		 */
+		@SuppressWarnings("unchecked")
+		Set<String> keys = (Set<String>) cache.getObject(newCache.getId());
+		assertNotNull(keys);
+
+		long count = 0;
+
+		for (@SuppressWarnings("unused")
+		String key : keys) {
+			count++;
+		}
+
+		assertEquals(count, valuesPerThread * threadTestCount);
+	}
+
 }
