@@ -46,6 +46,7 @@ final class CompressorTranscoder implements Transcoder<Object> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean asyncDecode(final CachedData cachedData) {
         return false;
     }
@@ -53,6 +54,7 @@ final class CompressorTranscoder implements Transcoder<Object> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object decode(final CachedData cachedData) {
         byte[] buffer = cachedData.getData();
 
@@ -78,6 +80,7 @@ final class CompressorTranscoder implements Transcoder<Object> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public CachedData encode(final Object object) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         GZIPOutputStream gzops = null;
@@ -104,6 +107,7 @@ final class CompressorTranscoder implements Transcoder<Object> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getMaxSize() {
         return Integer.MAX_VALUE;
     }

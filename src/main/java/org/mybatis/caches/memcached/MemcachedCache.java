@@ -50,6 +50,7 @@ public final class MemcachedCache implements Cache {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void clear() {
         MEMCACHED_CLIENT.removeGroup(this.id);
     }
@@ -57,6 +58,7 @@ public final class MemcachedCache implements Cache {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getId() {
         return this.id;
     }
@@ -64,6 +66,7 @@ public final class MemcachedCache implements Cache {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object getObject(Object key) {
         return MEMCACHED_CLIENT.getObject(key);
     }
@@ -71,6 +74,7 @@ public final class MemcachedCache implements Cache {
     /**
      * {@inheritDoc}
      */
+    @Override
     public ReadWriteLock getReadWriteLock() {
         return this.readWriteLock;
     }
@@ -78,6 +82,7 @@ public final class MemcachedCache implements Cache {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getSize() {
         return Integer.MAX_VALUE;
     }
@@ -85,6 +90,7 @@ public final class MemcachedCache implements Cache {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void putObject(Object key, Object value) {
         MEMCACHED_CLIENT.putObject(key, value, this.id);
     }
@@ -92,6 +98,7 @@ public final class MemcachedCache implements Cache {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object removeObject(Object key) {
         return MEMCACHED_CLIENT.removeObject(key);
     }
