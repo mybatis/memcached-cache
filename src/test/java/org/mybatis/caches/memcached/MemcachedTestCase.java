@@ -37,8 +37,6 @@ import org.junit.Test;
  * </ul>
  *
  * launch <code>mvn test</code>.
- *
- * @version $Id$
  */
 public final class MemcachedTestCase {
 
