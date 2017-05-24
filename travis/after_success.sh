@@ -24,7 +24,7 @@ echo "Current commit detected: ${commit_message}"
 # Some actions, like analyzing the code (Coveralls) and uploading
 # artifacts on a Maven repository, should only be made for one version.
  
-# If the version is 1.6, then perform the following actions.
+# If the version is 1.8, then perform the following actions.
 # 1. Upload artifacts to Sonatype.
 # 2. Use -q option to only display Maven errors and warnings.
 # 3. Use --settings to force the usage of our "settings.xml" file.
