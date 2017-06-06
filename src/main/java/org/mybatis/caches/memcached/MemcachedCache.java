@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2015 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -26,81 +26,81 @@ import org.apache.ibatis.cache.Cache;
  */
 public final class MemcachedCache implements Cache {
 
-    private static final MemcachedClientWrapper MEMCACHED_CLIENT = new MemcachedClientWrapper();
+  private static final MemcachedClientWrapper MEMCACHED_CLIENT = new MemcachedClientWrapper();
 
-    /**
-     * The {@link ReadWriteLock}.
-     */
-    private final ReadWriteLock readWriteLock = new DummyReadWriteLock();
+  /**
+   * The {@link ReadWriteLock}.
+   */
+  private final ReadWriteLock readWriteLock = new DummyReadWriteLock();
 
-    /**
-     * The cache id.
-     */
-    private final String id;
+  /**
+   * The cache id.
+   */
+  private final String id;
 
-    /**
-     * Builds a new Memcached-based Cache.
-     *
-     * @param id the Mapper id.
-     */
-    public MemcachedCache(final String id) {
-        this.id = id;
-    }
+  /**
+   * Builds a new Memcached-based Cache.
+   *
+   * @param id the Mapper id.
+   */
+  public MemcachedCache(final String id) {
+    this.id = id;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clear() {
-        MEMCACHED_CLIENT.removeGroup(this.id);
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void clear() {
+    MEMCACHED_CLIENT.removeGroup(this.id);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getId() {
-        return this.id;
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getId() {
+    return this.id;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getObject(Object key) {
-        return MEMCACHED_CLIENT.getObject(key);
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Object getObject(Object key) {
+    return MEMCACHED_CLIENT.getObject(key);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ReadWriteLock getReadWriteLock() {
-        return this.readWriteLock;
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ReadWriteLock getReadWriteLock() {
+    return this.readWriteLock;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getSize() {
-        return Integer.MAX_VALUE;
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getSize() {
+    return Integer.MAX_VALUE;
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void putObject(Object key, Object value) {
-        MEMCACHED_CLIENT.putObject(key, value, this.id);
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void putObject(Object key, Object value) {
+    MEMCACHED_CLIENT.putObject(key, value, this.id);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object removeObject(Object key) {
-        return MEMCACHED_CLIENT.removeObject(key);
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Object removeObject(Object key) {
+    return MEMCACHED_CLIENT.removeObject(key);
+  }
 
 }

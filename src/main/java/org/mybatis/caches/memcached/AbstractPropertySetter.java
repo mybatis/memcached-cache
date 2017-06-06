@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2015 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -32,109 +32,99 @@ import java.util.Properties;
  */
 abstract class AbstractPropertySetter<T> {
 
-    /**
-     * 'propertyName'='writermethod' index of {@link MemcachedConfiguration}
-     * properties.
-     */
-    private static Map<String, Method> WRITERS = new HashMap<String, Method>();
+  /**
+   * 'propertyName'='writermethod' index of {@link MemcachedConfiguration}
+   * properties.
+   */
+  private static Map<String, Method> WRITERS = new HashMap<String, Method>();
 
-    static {
-        try {
-            BeanInfo memcachedConfigInfo = Introspector.getBeanInfo(MemcachedConfiguration.class);
-            for (PropertyDescriptor descriptor : memcachedConfigInfo.getPropertyDescriptors()) {
-                WRITERS.put(descriptor.getName(), descriptor.getWriteMethod());
-            }
-        } catch (IntrospectionException e) {
-            // handle quietly
-        }
+  static {
+    try {
+      BeanInfo memcachedConfigInfo = Introspector.getBeanInfo(MemcachedConfiguration.class);
+      for (PropertyDescriptor descriptor : memcachedConfigInfo.getPropertyDescriptors()) {
+        WRITERS.put(descriptor.getName(), descriptor.getWriteMethod());
+      }
+    } catch (IntrospectionException e) {
+      // handle quietly
+    }
+  }
+
+  /**
+   * The Config property key.
+   */
+  private final String propertyKey;
+
+  /**
+   * The {@link MemcachedConfiguration} property name.
+   */
+  private final String propertyName;
+
+  /**
+   * The {@link MemcachedConfiguration} property method writer.
+   */
+  private final Method propertyWriterMethod;
+
+  /**
+   * The default value used if something goes wrong during the conversion or
+   * the property is not set in the config.
+   */
+  private final T defaultValue;
+
+  /**
+   * Build a new property setter.
+   *
+   * @param propertyKey the Config property key.
+   * @param propertyName the {@link MemcachedConfiguration} property name.
+   * @param defaultValue the property default value.
+   */
+  public AbstractPropertySetter(final String propertyKey, final String propertyName, final T defaultValue) {
+    this.propertyKey = propertyKey;
+    this.propertyName = propertyName;
+
+    this.propertyWriterMethod = WRITERS.get(propertyName);
+    if (this.propertyWriterMethod == null) {
+      throw new RuntimeException(
+          "Class '" + MemcachedConfiguration.class.getName() + "' doesn't contain a property '" + propertyName + "'");
     }
 
-    /**
-     * The Config property key.
-     */
-    private final String propertyKey;
+    this.defaultValue = defaultValue;
+  }
 
-    /**
-     * The {@link MemcachedConfiguration} property name.
-     */
-    private final String propertyName;
+  /**
+   * Extract a property from the, converts and puts it to the
+   * {@link MemcachedConfiguration}.
+   *
+   * @param config the Config
+   * @param memcachedConfiguration the {@link MemcachedConfiguration}
+   */
+  public final void set(Properties config, MemcachedConfiguration memcachedConfiguration) {
+    String propertyValue = config.getProperty(propertyKey);
+    T value;
 
-    /**
-     * The {@link MemcachedConfiguration} property method writer.
-     */
-    private final Method propertyWriterMethod;
-
-    /**
-     * The default value used if something goes wrong during the conversion or
-     * the property is not set in the config.
-     */
-    private final T defaultValue;
-
-    /**
-     * Build a new property setter.
-     *
-     * @param propertyKey the Config property key.
-     * @param propertyName the {@link MemcachedConfiguration} property name.
-     * @param defaultValue the property default value.
-     */
-    public AbstractPropertySetter(final String propertyKey, final String propertyName, final T defaultValue) {
-        this.propertyKey = propertyKey;
-        this.propertyName = propertyName;
-
-        this.propertyWriterMethod = WRITERS.get(propertyName);
-        if (this.propertyWriterMethod == null) {
-            throw new RuntimeException("Class '"
-                    + MemcachedConfiguration.class.getName()
-                    + "' doesn't contain a property '"
-                    + propertyName
-                    + "'");
-        }
-
-        this.defaultValue = defaultValue;
+    try {
+      value = this.convert(propertyValue);
+      if (value == null) {
+        value = defaultValue;
+      }
+    } catch (Exception e) {
+      value = defaultValue;
     }
 
-    /**
-     * Extract a property from the, converts and puts it to the
-     * {@link MemcachedConfiguration}.
-     *
-     * @param config the Config
-     * @param memcachedConfiguration the {@link MemcachedConfiguration}
-     */
-    public final void set(Properties config, MemcachedConfiguration memcachedConfiguration) {
-        String propertyValue = config.getProperty(propertyKey);
-        T value;
-
-        try {
-            value = this.convert(propertyValue);
-            if (value == null) {
-                value = defaultValue;
-            }
-        } catch (Exception e) {
-            value = defaultValue;
-        }
-
-        try {
-            propertyWriterMethod.invoke(memcachedConfiguration, value);
-        } catch (Exception e) {
-            throw new RuntimeException("Impossible to set property '"
-                    + propertyName
-                    + "' with value '"
-                    + value
-                    + "', extracted from ('"
-                    + propertyKey
-                    + "'="
-                    + propertyValue
-                    + ")", e);
-        }
+    try {
+      propertyWriterMethod.invoke(memcachedConfiguration, value);
+    } catch (Exception e) {
+      throw new RuntimeException("Impossible to set property '" + propertyName + "' with value '" + value
+          + "', extracted from ('" + propertyKey + "'=" + propertyValue + ")", e);
     }
+  }
 
-    /**
-     * Convert a string representation to a proper Java Object.
-     *
-     * @param value the value has to be converted.
-     * @return the converted value.
-     * @throws Exception if any error occurs.
-     */
-    protected abstract T convert(String value) throws Exception;
+  /**
+   * Convert a string representation to a proper Java Object.
+   *
+   * @param value the value has to be converted.
+   * @return the converted value.
+   * @throws Exception if any error occurs.
+   */
+  protected abstract T convert(String value) throws Exception;
 
 }

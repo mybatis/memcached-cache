@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2015 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,44 +25,45 @@ import java.security.NoSuchAlgorithmException;
  */
 public final class StringUtils {
 
-    private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+  private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
+      'f' };
 
-    private StringUtils() {
-        // Prevent Instantiation
+  private StringUtils() {
+    // Prevent Instantiation
+  }
+
+  public static String sha1Hex(String data) {
+    if (data == null) {
+      throw new IllegalArgumentException("data must not be null");
     }
 
-    public static String sha1Hex(String data) {
-        if (data == null) {
-            throw new IllegalArgumentException("data must not be null");
-        }
+    byte[] bytes = digest("SHA1", data);
 
-        byte[] bytes = digest("SHA1", data);
+    return toHexString(bytes);
+  }
 
-        return toHexString(bytes);
+  private static String toHexString(byte[] bytes) {
+    int l = bytes.length;
+
+    char[] out = new char[l << 1];
+
+    for (int i = 0, j = 0; i < l; i++) {
+      out[j++] = DIGITS[(0xF0 & bytes[i]) >>> 4];
+      out[j++] = DIGITS[0x0F & bytes[i]];
     }
 
-    private static String toHexString(byte[] bytes) {
-        int l = bytes.length;
+    return new String(out);
+  }
 
-        char[] out = new char[l << 1];
-
-        for (int i = 0, j = 0; i < l; i++) {
-            out[j++] = DIGITS[(0xF0 & bytes[i]) >>> 4];
-            out[j++] = DIGITS[0x0F & bytes[i]];
-        }
-
-        return new String(out);
+  private static byte[] digest(String algorithm, String data) {
+    MessageDigest digest;
+    try {
+      digest = MessageDigest.getInstance(algorithm);
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
     }
 
-    private static byte[] digest(String algorithm, String data) {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-
-        return digest.digest(data.getBytes());
-    }
+    return digest.digest(data.getBytes());
+  }
 
 }

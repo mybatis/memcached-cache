@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2015 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,96 +28,97 @@ import java.util.Properties;
  */
 final class MemcachedConfigurationBuilder {
 
-    /**
-     * This class instance.
-     */
-    private static final MemcachedConfigurationBuilder INSTANCE = new MemcachedConfigurationBuilder();
+  /**
+   * This class instance.
+   */
+  private static final MemcachedConfigurationBuilder INSTANCE = new MemcachedConfigurationBuilder();
 
-    private static final String SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME = "memcached.properties.filename";
+  private static final String SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME = "memcached.properties.filename";
 
-    /**
-     *
-     */
-    private static final String MEMCACHED_RESOURCE = "memcached.properties";
+  /**
+   *
+   */
+  private static final String MEMCACHED_RESOURCE = "memcached.properties";
 
-    private final String memcachedPropertiesFilename;
+  private final String memcachedPropertiesFilename;
 
-    /**
-     * The setters used to extract properties.
-     */
-    private final List<AbstractPropertySetter<?>> settersRegistry = new ArrayList<AbstractPropertySetter<?>>();
+  /**
+   * The setters used to extract properties.
+   */
+  private final List<AbstractPropertySetter<?>> settersRegistry = new ArrayList<AbstractPropertySetter<?>>();
 
-    /**
-     * Hidden constructor, this class can't be instantiated.
-     */
-    private MemcachedConfigurationBuilder() {
-        memcachedPropertiesFilename = System.getProperty(SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME, MEMCACHED_RESOURCE);
+  /**
+   * Hidden constructor, this class can't be instantiated.
+   */
+  private MemcachedConfigurationBuilder() {
+    memcachedPropertiesFilename = System.getProperty(SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME, MEMCACHED_RESOURCE);
 
-        settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.keyprefix", "keyPrefix", "_mybatis_"));
+    settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.keyprefix", "keyPrefix", "_mybatis_"));
 
-        settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
-        settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.timeout", "timeout", 5));
-        settersRegistry.add(new TimeUnitSetter());
+    settersRegistry
+        .add(new IntegerPropertySetter("org.mybatis.caches.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
+    settersRegistry.add(new IntegerPropertySetter("org.mybatis.caches.memcached.timeout", "timeout", 5));
+    settersRegistry.add(new TimeUnitSetter());
 
-        settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.asyncget", "usingAsyncGet", false));
-        settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.compression", "compressionEnabled", false));
+    settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.asyncget", "usingAsyncGet", false));
+    settersRegistry
+        .add(new BooleanPropertySetter("org.mybatis.caches.memcached.compression", "compressionEnabled", false));
 
-        settersRegistry.add(new InetSocketAddressListPropertySetter());
-        settersRegistry.add(new ConnectionFactorySetter());
-    }
+    settersRegistry.add(new InetSocketAddressListPropertySetter());
+    settersRegistry.add(new ConnectionFactorySetter());
+  }
 
-    /**
-     * Return this class instance.
-     *
-     * @return this class instance.
-     */
-    public static MemcachedConfigurationBuilder getInstance() {
-        return INSTANCE;
-    }
+  /**
+   * Return this class instance.
+   *
+   * @return this class instance.
+   */
+  public static MemcachedConfigurationBuilder getInstance() {
+    return INSTANCE;
+  }
 
-    /**
-     * Parses the Config and builds a new {@link MemcachedConfiguration}.
-     *
-     * @return the converted {@link MemcachedConfiguration}.
-     */
-    public MemcachedConfiguration parseConfiguration() {
-        return parseConfiguration(getClass().getClassLoader());
-    }
+  /**
+   * Parses the Config and builds a new {@link MemcachedConfiguration}.
+   *
+   * @return the converted {@link MemcachedConfiguration}.
+   */
+  public MemcachedConfiguration parseConfiguration() {
+    return parseConfiguration(getClass().getClassLoader());
+  }
 
-    /**
-     * Parses the Config and builds a new {@link MemcachedConfiguration}.
-     *
-     * @param the {@link ClassLoader} used to load the {@code memcached.properties} file in classpath.
-     * @return the converted {@link MemcachedConfiguration}.
-     */
-    public MemcachedConfiguration parseConfiguration(ClassLoader classLoader) {
-        Properties config = new Properties();
+  /**
+   * Parses the Config and builds a new {@link MemcachedConfiguration}.
+   *
+   * @param the {@link ClassLoader} used to load the {@code memcached.properties} file in classpath.
+   * @return the converted {@link MemcachedConfiguration}.
+   */
+  public MemcachedConfiguration parseConfiguration(ClassLoader classLoader) {
+    Properties config = new Properties();
 
-        // load the properties specified from /memcached.properties, if present
-        InputStream input = classLoader.getResourceAsStream(memcachedPropertiesFilename);
-        if (input != null) {
-            try {
-                config.load(input);
-            } catch (IOException e) {
-                throw new RuntimeException("An error occurred while reading classpath property '"
-                        + memcachedPropertiesFilename
-                        + "', see nested exceptions", e);
-            } finally {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    // close quietly
-                }
-            }
+    // load the properties specified from /memcached.properties, if present
+    InputStream input = classLoader.getResourceAsStream(memcachedPropertiesFilename);
+    if (input != null) {
+      try {
+        config.load(input);
+      } catch (IOException e) {
+        throw new RuntimeException("An error occurred while reading classpath property '" + memcachedPropertiesFilename
+            + "', see nested exceptions", e);
+      } finally {
+        try {
+          input.close();
+        } catch (IOException e) {
+          // close quietly
         }
-
-        MemcachedConfiguration memcachedConfiguration = new MemcachedConfiguration();
-
-        for (AbstractPropertySetter<?> setter : settersRegistry) {
-            setter.set(config, memcachedConfiguration);
-        }
-
-        return memcachedConfiguration;
+      }
     }
+
+    MemcachedConfiguration memcachedConfiguration = new MemcachedConfiguration();
+
+    for (AbstractPropertySetter<?> setter : settersRegistry) {
+      setter.set(config, memcachedConfiguration);
+    }
+
+    return memcachedConfiguration;
+  }
 
 }
