@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2015 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -38,93 +38,91 @@ import org.apache.ibatis.cache.CacheException;
  */
 final class CompressorTranscoder implements Transcoder<Object> {
 
-    /**
-     * The serialized and compressed flag.
-     */
-    private static final int SERIALIZED_COMPRESSED = 3;
+  /**
+   * The serialized and compressed flag.
+   */
+  private static final int SERIALIZED_COMPRESSED = 3;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean asyncDecode(final CachedData cachedData) {
-        return false;
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean asyncDecode(final CachedData cachedData) {
+    return false;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Object decode(final CachedData cachedData) {
+    byte[] buffer = cachedData.getData();
+
+    ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+    GZIPInputStream gzis = null;
+    ObjectInputStream ois = null;
+    Object ret = null;
+
+    try {
+      gzis = new GZIPInputStream(bais);
+      ois = new ObjectInputStream(gzis);
+      ret = ois.readObject();
+    } catch (Exception e) {
+      throw new CacheException("Impossible to decompress cached object, see nested exceptions", e);
+    } finally {
+      closeQuietly(ois);
+      closeQuietly(gzis);
+      closeQuietly(bais);
+    }
+    return ret;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public CachedData encode(final Object object) {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    GZIPOutputStream gzops = null;
+    ObjectOutputStream oos = null;
+
+    try {
+      gzops = new GZIPOutputStream(baos);
+      oos = new ObjectOutputStream(gzops);
+      oos.writeObject(object);
+    } catch (IOException e) {
+      throw new CacheException("Impossible to compress object [" + object + "], see nested exceptions", e);
+    } finally {
+      closeQuietly(oos);
+      closeQuietly(gzops);
+      closeQuietly(baos);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object decode(final CachedData cachedData) {
-        byte[] buffer = cachedData.getData();
+    byte[] buffer = baos.toByteArray();
+    return new CachedData(SERIALIZED_COMPRESSED, buffer, CachedData.MAX_SIZE);
+  }
 
-        ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
-        GZIPInputStream gzis = null;
-        ObjectInputStream ois = null;
-        Object ret = null;
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int getMaxSize() {
+    return Integer.MAX_VALUE;
+  }
 
-        try {
-            gzis = new GZIPInputStream(bais);
-            ois = new ObjectInputStream(gzis);
-            ret = ois.readObject();
-        } catch (Exception e) {
-            throw new CacheException("Impossible to decompress cached object, see nested exceptions", e);
-        } finally {
-            closeQuietly(ois);
-            closeQuietly(gzis);
-            closeQuietly(bais);
-        }
-        return ret;
+  /**
+   * Unconditionally close an {@link InputStream}.
+   *
+   * @param closeable the InputStream to close, may be null or already closed.
+   */
+  private static void closeQuietly(final Closeable closeable) {
+    if (closeable != null) {
+      try {
+        closeable.close();
+      } catch (IOException e) {
+        // do nothing
+      }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CachedData encode(final Object object) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        GZIPOutputStream gzops = null;
-        ObjectOutputStream oos = null;
-
-        try {
-            gzops = new GZIPOutputStream(baos);
-            oos = new ObjectOutputStream(gzops);
-            oos.writeObject(object);
-        } catch (IOException e) {
-            throw new CacheException("Impossible to compress object ["
-                        + object
-                        + "], see nested exceptions", e);
-        } finally {
-            closeQuietly(oos);
-            closeQuietly(gzops);
-            closeQuietly(baos);
-        }
-
-        byte[] buffer = baos.toByteArray();
-        return new CachedData(SERIALIZED_COMPRESSED, buffer, CachedData.MAX_SIZE);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getMaxSize() {
-        return Integer.MAX_VALUE;
-    }
-
-    /**
-     * Unconditionally close an {@link InputStream}.
-     *
-     * @param closeable the InputStream to close, may be null or already closed.
-     */
-    private static void closeQuietly(final Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (IOException e) {
-                // do nothing
-            }
-        }
-    }
+  }
 
 }

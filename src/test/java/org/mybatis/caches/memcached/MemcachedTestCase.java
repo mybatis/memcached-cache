@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2016 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -40,104 +40,104 @@ import org.junit.Test;
  */
 public final class MemcachedTestCase {
 
-    private static final String DEFAULT_ID = "MEMCACHED";
+  private static final String DEFAULT_ID = "MEMCACHED";
 
-    private MemcachedCache cache;
+  private MemcachedCache cache;
 
-    @Before
-    public void newCache() {
-        cache = new MemcachedCache(DEFAULT_ID);
+  @Before
+  public void newCache() {
+    cache = new MemcachedCache(DEFAULT_ID);
+  }
+
+  @Test
+  public void shouldDemonstrateCopiesAreEqual() {
+    for (int i = 0; i < 100; i++) {
+      cache.putObject(i, i);
+      assertEquals(i, cache.getObject(i));
+    }
+  }
+
+  @Test
+  public void shouldRemoveItemOnDemand() {
+    cache.putObject(0, 0);
+    assertNotNull(cache.getObject(0));
+    cache.removeObject(0);
+    Object o = cache.getObject(0);
+    assertNull(o);
+  }
+
+  @Test
+  public void shouldFlushAllItemsOnDemand() {
+    for (int i = 0; i < 5; i++) {
+      cache.putObject(i, i);
+    }
+    assertNotNull(cache.getObject(0));
+    assertNotNull(cache.getObject(4));
+    cache.clear();
+    assertNull(cache.getObject(0));
+    assertNull(cache.getObject(4));
+  }
+
+  @Test
+  public void shouldAcceptAKeyBiggerThan250() {
+    char[] keyChar = new char[1024];
+    Arrays.fill(keyChar, 'X');
+    String key = new String(keyChar);
+    String value = "value";
+    cache.putObject(key, value);
+    assertEquals(value, cache.getObject(key));
+  }
+
+  /**
+   * The group should contain all keys even if race conditions are present
+   */
+  @Test
+  public void groupShouldContainAllKeys() {
+
+    long threadTestCount = 20;
+    long valuesPerThread = 100;
+    String mapperName = "GroupTest";
+
+    MemcachedCache newCache = new MemcachedCache(mapperName);
+    newCache.clear();
+
+    /*
+     * Create, run & wait 'threadTestCount' concurrent threads
+     */
+    long i = 0;
+
+    List<Thread> threads = new ArrayList<Thread>();
+
+    while (i < threadTestCount) {
+      Thread thread = new GroupTestThread(newCache, valuesPerThread);
+      thread.start();
+      threads.add(thread);
+      i++;
     }
 
-    @Test
-    public void shouldDemonstrateCopiesAreEqual() {
-        for (int i = 0; i < 100; i++) {
-            cache.putObject(i, i);
-            assertEquals(i, cache.getObject(i));
-        }
+    for (Thread thread : threads) {
+      try {
+        thread.join();
+      } catch (InterruptedException e) {
+      }
     }
 
-    @Test
-    public void shouldRemoveItemOnDemand() {
-        cache.putObject(0, 0);
-        assertNotNull(cache.getObject(0));
-        cache.removeObject(0);
-        Object o = cache.getObject(0);
-        assertNull(o);
+    /*
+     * Since each thread will create 'threadTestCount' values there should be ( 'valuesPerThread' * 'threadTestCount' ) elements in the group, independently
+     * of any race condition.
+     */
+    @SuppressWarnings("unchecked")
+    Set<String> keys = (Set<String>) cache.getObject(newCache.getId());
+    assertNotNull(keys);
+
+    long count = 0;
+
+    for (@SuppressWarnings("unused")
+    String key : keys) {
+      count++;
     }
 
-    @Test
-    public void shouldFlushAllItemsOnDemand() {
-        for (int i = 0; i < 5; i++) {
-            cache.putObject(i, i);
-        }
-        assertNotNull(cache.getObject(0));
-        assertNotNull(cache.getObject(4));
-        cache.clear();
-        assertNull(cache.getObject(0));
-        assertNull(cache.getObject(4));
-    }
-
-    @Test
-    public void shouldAcceptAKeyBiggerThan250() {
-        char[] keyChar = new char[1024];
-        Arrays.fill(keyChar, 'X');
-        String key = new String(keyChar);
-        String value = "value";        
-        cache.putObject(key, value);
-        assertEquals(value, cache.getObject(key));
-    }
-
-	/**
-	 * The group should contain all keys even if race conditions are present
-	 */
-	@Test
-	public void groupShouldContainAllKeys() {
-
-		long threadTestCount = 20;
-		long valuesPerThread = 100;
-		String mapperName = "GroupTest";
-
-		MemcachedCache newCache = new MemcachedCache(mapperName);
-		newCache.clear();
-
-		/*
-		 * Create, run & wait 'threadTestCount' concurrent threads
-		 */
-		long i = 0;
-
-		List<Thread> threads = new ArrayList<Thread>();
-
-		while (i < threadTestCount) {
-			Thread thread = new GroupTestThread(newCache, valuesPerThread);
-			thread.start();
-			threads.add(thread);
-			i++;
-		}
-
-		for (Thread thread : threads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-			}
-		}
-
-		/*
-		 * Since each thread will create 'threadTestCount' values there should be ( 'valuesPerThread' * 'threadTestCount' ) elements in the group, independently
-		 * of any race condition.
-		 */
-		@SuppressWarnings("unchecked")
-		Set<String> keys = (Set<String>) cache.getObject(newCache.getId());
-		assertNotNull(keys);
-
-		long count = 0;
-
-		for (@SuppressWarnings("unused")
-		String key : keys) {
-			count++;
-		}
-
-		assertEquals(count, valuesPerThread * threadTestCount);
-	}
+    assertEquals(count, valuesPerThread * threadTestCount);
+  }
 
 }

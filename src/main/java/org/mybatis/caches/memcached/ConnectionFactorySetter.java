@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2015 the original author or authors.
+ *    Copyright 2012-2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,29 +25,24 @@ import net.spy.memcached.DefaultConnectionFactory;
  */
 final class ConnectionFactorySetter extends AbstractPropertySetter<ConnectionFactory> {
 
-    /**
-     * Instantiates a String to ConnectionFactory setter.
-     */
-    public ConnectionFactorySetter() {
-        super("org.mybatis.caches.memcached.connectionfactory",
-                "connectionFactory",
-                new DefaultConnectionFactory());
-    }
+  /**
+   * Instantiates a String to ConnectionFactory setter.
+   */
+  public ConnectionFactorySetter() {
+    super("org.mybatis.caches.memcached.connectionfactory", "connectionFactory", new DefaultConnectionFactory());
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected ConnectionFactory convert(String property) throws Exception {
-        Class<?> clazz = Class.forName(property);
-        if (!ConnectionFactory.class.isAssignableFrom(clazz)) {
-            throw new IllegalArgumentException("Class '"
-                    + clazz.getName()
-                    + "' is not a valid '"
-                    + ConnectionFactory.class.getName()
-                    + "' implementation");
-        }
-        return (ConnectionFactory) clazz.newInstance();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected ConnectionFactory convert(String property) throws Exception {
+    Class<?> clazz = Class.forName(property);
+    if (!ConnectionFactory.class.isAssignableFrom(clazz)) {
+      throw new IllegalArgumentException(
+          "Class '" + clazz.getName() + "' is not a valid '" + ConnectionFactory.class.getName() + "' implementation");
     }
+    return (ConnectionFactory) clazz.newInstance();
+  }
 
 }
