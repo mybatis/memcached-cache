@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -89,7 +89,8 @@ final class MemcachedConfigurationBuilder {
   /**
    * Parses the Config and builds a new {@link MemcachedConfiguration}.
    *
-   * @param the {@link ClassLoader} used to load the {@code memcached.properties} file in classpath.
+   * @param the
+   *          {@link ClassLoader} used to load the {@code memcached.properties} file in classpath.
    * @return the converted {@link MemcachedConfiguration}.
    */
   public MemcachedConfiguration parseConfiguration(ClassLoader classLoader) {

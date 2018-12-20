@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ final class StringPropertySetter extends AbstractPropertySetter<String> {
   /**
    * Instantiates an identity String setter.
    *
-   * @param propertyKey the OSCache Config property key.
-   * @param propertyName the {@link MemcachedConfiguration} property name.
-   * @param defaultValue the property default value.
+   * @param propertyKey
+   *          the OSCache Config property key.
+   * @param propertyName
+   *          the {@link MemcachedConfiguration} property name.
+   * @param defaultValue
+   *          the property default value.
    */
   public StringPropertySetter(final String propertyKey, final String propertyName, final String defaultValue) {
     super(propertyKey, propertyName, defaultValue);

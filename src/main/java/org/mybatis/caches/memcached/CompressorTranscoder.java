@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -31,8 +31,7 @@ import net.spy.memcached.transcoders.Transcoder;
 import org.apache.ibatis.cache.CacheException;
 
 /**
- * The Transcoder that compress and decompress the stored objects using the
- * GZIP compression algorithm.
+ * The Transcoder that compress and decompress the stored objects using the GZIP compression algorithm.
  *
  * @author Simone Tripodi
  */
@@ -113,7 +112,8 @@ final class CompressorTranscoder implements Transcoder<Object> {
   /**
    * Unconditionally close an {@link InputStream}.
    *
-   * @param closeable the InputStream to close, may be null or already closed.
+   * @param closeable
+   *          the InputStream to close, may be null or already closed.
    */
   private static void closeQuietly(final Closeable closeable) {
     if (closeable != null) {
