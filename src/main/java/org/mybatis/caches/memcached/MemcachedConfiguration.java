@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -36,8 +36,7 @@ final class MemcachedConfiguration {
   private String keyPrefix;
 
   /**
-   * The Connection Factory used to establish the connection to Memcached
-   * server(s).
+   * The Connection Factory used to establish the connection to Memcached server(s).
    */
   private ConnectionFactory connectionFactory;
 
@@ -79,7 +78,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param keyPrefix the keyPrefix to set
+   * @param keyPrefix
+   *          the keyPrefix to set
    */
   public void setKeyPrefix(String keyPrefix) {
     this.keyPrefix = keyPrefix;
@@ -93,7 +93,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param connectionFactory the connectionFactory to set
+   * @param connectionFactory
+   *          the connectionFactory to set
    */
   public void setConnectionFactory(ConnectionFactory connectionFactory) {
     this.connectionFactory = connectionFactory;
@@ -107,7 +108,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param addresses the addresses to set
+   * @param addresses
+   *          the addresses to set
    */
   public void setAddresses(List<InetSocketAddress> addresses) {
     this.addresses = addresses;
@@ -121,7 +123,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param usingAsyncGet the usingAsyncGet to set
+   * @param usingAsyncGet
+   *          the usingAsyncGet to set
    */
   public void setUsingAsyncGet(boolean usingAsyncGet) {
     this.usingAsyncGet = usingAsyncGet;
@@ -135,7 +138,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param compressionEnabled the compressionEnabled to set
+   * @param compressionEnabled
+   *          the compressionEnabled to set
    */
   public void setCompressionEnabled(boolean compressionEnabled) {
     this.compressionEnabled = compressionEnabled;
@@ -149,7 +153,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param expiration the expiration to set
+   * @param expiration
+   *          the expiration to set
    */
   public void setExpiration(int expiration) {
     this.expiration = expiration;
@@ -163,7 +168,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param timeout the timeout to set
+   * @param timeout
+   *          the timeout to set
    */
   public void setTimeout(int timeout) {
     this.timeout = timeout;
@@ -177,7 +183,8 @@ final class MemcachedConfiguration {
   }
 
   /**
-   * @param timeUnit the timeUnit to set
+   * @param timeUnit
+   *          the timeUnit to set
    */
   public void setTimeUnit(TimeUnit timeUnit) {
     this.timeUnit = timeUnit;
@@ -195,9 +202,12 @@ final class MemcachedConfiguration {
   /**
    * Computes a hashCode given the input objects.
    *
-   * @param initialNonZeroOddNumber a non-zero, odd number used as the initial value.
-   * @param multiplierNonZeroOddNumber a non-zero, odd number used as the multiplier.
-   * @param objs the objects to compute hash code.
+   * @param initialNonZeroOddNumber
+   *          a non-zero, odd number used as the initial value.
+   * @param multiplierNonZeroOddNumber
+   *          a non-zero, odd number used as the multiplier.
+   * @param objs
+   *          the objects to compute hash code.
    * @return the computed hashCode.
    */
   public static int hash(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object... objs) {
@@ -230,8 +240,10 @@ final class MemcachedConfiguration {
   /**
    * Verifies input objects are equal.
    *
-   * @param o1 the first argument to compare
-   * @param o2 the second argument to compare
+   * @param o1
+   *          the first argument to compare
+   * @param o2
+   *          the second argument to compare
    * @return true, if the input arguments are equal, false otherwise.
    */
   private static <O> boolean eq(O o1, O o2) {

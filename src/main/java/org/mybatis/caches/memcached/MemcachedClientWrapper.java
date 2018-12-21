@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -96,7 +96,8 @@ final class MemcachedClientWrapper {
   /**
    * Converts the MyBatis object key in the proper string representation.
    * 
-   * @param key the MyBatis object key.
+   * @param key
+   *          the MyBatis object key.
    * @return the proper string representation.
    */
   private String toKeyString(final Object key) {
@@ -128,7 +129,7 @@ final class MemcachedClientWrapper {
    * Return the stored group in Memcached identified by the specified key.
    *
    * @param groupKey
-   *            the group key.
+   *          the group key.
    * @return the group if was previously stored, null otherwise.
    */
   private ObjectWithCas getGroup(String groupKey) {
@@ -271,8 +272,10 @@ final class MemcachedClientWrapper {
   /**
    * Stores an object identified by a key in Memcached.
    *
-   * @param keyString the object key
-   * @param value the object has to be stored.
+   * @param keyString
+   *          the object key
+   * @param value
+   *          the object has to be stored.
    */
   private void storeInMemcached(String keyString, Object value) {
     if (value != null && !Serializable.class.isAssignableFrom(value.getClass())) {

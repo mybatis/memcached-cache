@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,9 +25,12 @@ final class IntegerPropertySetter extends AbstractPropertySetter<Integer> {
   /**
    * Instantiates a String to Integer setter.
    *
-   * @param propertyKey the Config property key.
-   * @param propertyName the {@link MemcachedConfiguration} property name.
-   * @param defaultValue the property default value.
+   * @param propertyKey
+   *          the Config property key.
+   * @param propertyName
+   *          the {@link MemcachedConfiguration} property name.
+   * @param defaultValue
+   *          the property default value.
    */
   public IntegerPropertySetter(final String propertyKey, final String propertyName, final Integer defaultValue) {
     super(propertyKey, propertyName, defaultValue);

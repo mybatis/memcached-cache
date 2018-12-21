@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2017 the original author or authors.
+ *    Copyright 2012-2018 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,16 +25,14 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Converts a keyed property string in the Config to a proper Java
- * object representation.
+ * Converts a keyed property string in the Config to a proper Java object representation.
  *
  * @author Simone Tripodi
  */
 abstract class AbstractPropertySetter<T> {
 
   /**
-   * 'propertyName'='writermethod' index of {@link MemcachedConfiguration}
-   * properties.
+   * 'propertyName'='writermethod' index of {@link MemcachedConfiguration} properties.
    */
   private static Map<String, Method> WRITERS = new HashMap<String, Method>();
 
@@ -65,17 +63,19 @@ abstract class AbstractPropertySetter<T> {
   private final Method propertyWriterMethod;
 
   /**
-   * The default value used if something goes wrong during the conversion or
-   * the property is not set in the config.
+   * The default value used if something goes wrong during the conversion or the property is not set in the config.
    */
   private final T defaultValue;
 
   /**
    * Build a new property setter.
    *
-   * @param propertyKey the Config property key.
-   * @param propertyName the {@link MemcachedConfiguration} property name.
-   * @param defaultValue the property default value.
+   * @param propertyKey
+   *          the Config property key.
+   * @param propertyName
+   *          the {@link MemcachedConfiguration} property name.
+   * @param defaultValue
+   *          the property default value.
    */
   public AbstractPropertySetter(final String propertyKey, final String propertyName, final T defaultValue) {
     this.propertyKey = propertyKey;
@@ -91,11 +91,12 @@ abstract class AbstractPropertySetter<T> {
   }
 
   /**
-   * Extract a property from the, converts and puts it to the
-   * {@link MemcachedConfiguration}.
+   * Extract a property from the, converts and puts it to the {@link MemcachedConfiguration}.
    *
-   * @param config the Config
-   * @param memcachedConfiguration the {@link MemcachedConfiguration}
+   * @param config
+   *          the Config
+   * @param memcachedConfiguration
+   *          the {@link MemcachedConfiguration}
    */
   public final void set(Properties config, MemcachedConfiguration memcachedConfiguration) {
     String propertyValue = config.getProperty(propertyKey);
@@ -121,9 +122,11 @@ abstract class AbstractPropertySetter<T> {
   /**
    * Convert a string representation to a proper Java Object.
    *
-   * @param value the value has to be converted.
+   * @param value
+   *          the value has to be converted.
    * @return the converted value.
-   * @throws Exception if any error occurs.
+   * @throws Exception
+   *           if any error occurs.
    */
   protected abstract T convert(String value) throws Exception;
 
