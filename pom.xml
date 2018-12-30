@@ -64,6 +64,7 @@
     <clirr.comparisonVersion>1.0.0</clirr.comparisonVersion>
     <findbugs.onlyAnalyze>org.mybatis.caches.memcached.*</findbugs.onlyAnalyze>
     <gcu.product>Cache</gcu.product>
+    <module.name>org.mybatis.caches.memcached</module.name>
   </properties>
 
   <dependencies>
