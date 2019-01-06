@@ -99,25 +99,13 @@
     </dependency>
   </dependencies>
 
-  <repositories>
-    <repository>
-      <id>spy</id>
-      <name>Spy Repository</name>
-      <layout>default</layout>
-      <url>http://files.couchbase.com/maven2/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
-          <arguments>-Prelease,bundle</arguments>
+          <releaseProfiles>release,bundle</releaseProfiles>
         </configuration>
       </plugin>
 
