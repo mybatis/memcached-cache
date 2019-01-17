@@ -47,7 +47,7 @@ final class MemcachedClientWrapper {
 
   /**
    * Used to represent an object retrieved from Memcached along with its CAS information
-   * 
+   *
    * @author Weisz, Gustavo E.
    */
   private class ObjectWithCas {
@@ -95,7 +95,7 @@ final class MemcachedClientWrapper {
 
   /**
    * Converts the MyBatis object key in the proper string representation.
-   * 
+   *
    * @param key
    *          the MyBatis object key.
    * @return the proper string representation.
@@ -195,7 +195,7 @@ final class MemcachedClientWrapper {
 
   /**
    * Retrieves an object along with its cas using the given key
-   * 
+   *
    * @param keyString
    * @return
    * @throws Exception
@@ -292,9 +292,9 @@ final class MemcachedClientWrapper {
 
   /**
    * Tries to update an object value in memcached considering the cas validation
-   * 
+   *
    * Returns true if the object passed the cas validation and was modified.
-   * 
+   *
    * @param keyString
    * @param value
    * @return
@@ -319,9 +319,9 @@ final class MemcachedClientWrapper {
 
   /**
    * Tries to store an object identified by a key in Memcached.
-   * 
+   *
    * Will fail if the object already exists.
-   * 
+   *
    * @param keyString
    * @param value
    * @return
@@ -370,31 +370,40 @@ final class MemcachedClientWrapper {
   public void removeGroup(String id) {
     String groupKey = toKeyString(id);
 
-    ObjectWithCas group = getGroup(groupKey);
-    Set<String> groupValues;
+    // remove namespace key into memcached
+    // Optimistic lock approach...
+    boolean jobDone = false;
 
-    if (group == null || group.getObject() == null) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("No need to flush cached entries for group '" + id + "' because is empty");
+    while (!jobDone) {
+      ObjectWithCas group = getGroup(groupKey);
+      Set<String> groupValues;
+
+      if (group == null || group.getObject() == null) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("No need to flush cached entries for group '" + id + "' because is empty");
+        }
+        return;
       }
-      return;
+
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Flushing keys: " + group);
+      }
+
+      groupValues = (Set<String>) group.getObject();
+
+      for (String key : groupValues) {
+        client.delete(key);
+      }
+
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Flushing group: " + groupKey);
+      }
+
+      groupValues = (Set<String>) group.getObject();
+      groupValues.clear();
+
+      jobDone = storeInMemcached(groupKey, group);
     }
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Flushing keys: " + group);
-    }
-
-    groupValues = (Set<String>) group.getObject();
-
-    for (String key : groupValues) {
-      client.delete(key);
-    }
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Flushing group: " + groupKey);
-    }
-
-    client.delete(groupKey);
   }
 
   @Override
