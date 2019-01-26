@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2018 the original author or authors.
+ *    Copyright 2012-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -69,6 +69,21 @@ final class MemcachedConfiguration {
    * The Memcached timeout unit when using async get.
    */
   private TimeUnit timeUnit;
+
+  /**
+   * The flag to enable SASL Connection
+   */
+  private boolean usingSASL;
+
+  /**
+   * The Memcached SASL username
+   */
+  private String username;
+
+  /**
+   * The Memcached SASL password
+   */
+  private String password;
 
   /**
    * @return the keyPrefix
@@ -191,12 +206,57 @@ final class MemcachedConfiguration {
   }
 
   /**
+   * @return the usingSASL
+   */
+  public boolean isUsingSASL() {
+    return usingSASL;
+  }
+
+  /**
+   * @param usingSASL
+   *          the usingSASL to set
+   */
+  public void setUsingSASL(boolean usingSASL) {
+    this.usingSASL = usingSASL;
+  }
+
+  /**
+   * @return the username
+   */
+  public String getUsername() {
+    return username;
+  }
+
+  /**
+   * @param username
+   *          the username to set
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  /**
+   * @return the password
+   */
+  public String getPassword() {
+    return password;
+  }
+
+  /**
+   * @param password
+   *          the password to set
+   */
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
   public int hashCode() {
     return hash(1, 31, addresses, compressionEnabled, connectionFactory, expiration, keyPrefix, timeUnit, timeout,
-        usingAsyncGet);
+        usingAsyncGet, usingSASL, username, password);
   }
 
   /**
@@ -234,7 +294,8 @@ final class MemcachedConfiguration {
     return eq(addresses, other.addresses) && eq(compressionEnabled, other.compressionEnabled)
         && eq(connectionFactory, other.connectionFactory) && eq(expiration, other.expiration)
         && eq(keyPrefix, other.keyPrefix) && eq(timeUnit, other.timeUnit) && eq(timeout, other.timeout)
-        && eq(usingAsyncGet, other.usingAsyncGet);
+        && eq(usingAsyncGet, other.usingAsyncGet) && eq(usingSASL, other.usingSASL) && eq(username, other.username)
+        && eq(password, other.password);
   }
 
   /**
@@ -256,8 +317,9 @@ final class MemcachedConfiguration {
   @Override
   public String toString() {
     return format(
-        "MemcachedConfiguration [addresses=%s, compressionEnabled=%s, connectionFactory=%s, , expiration=%s, keyPrefix=%s, timeUnit=%s, timeout=%s, usingAsyncGet=%s]",
-        addresses, compressionEnabled, connectionFactory, expiration, keyPrefix, timeUnit, timeout, usingAsyncGet);
+        "MemcachedConfiguration [addresses=%s, compressionEnabled=%s, connectionFactory=%s, , expiration=%s, keyPrefix=%s, timeUnit=%s, timeout=%s, usingAsyncGet=%s, usingSASL=%s, username=%s, password=%s]",
+        addresses, compressionEnabled, connectionFactory, expiration, keyPrefix, timeUnit, timeout, usingAsyncGet,
+        usingSASL, username, password);
   }
 
 }

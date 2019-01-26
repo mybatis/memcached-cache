@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2018 the original author or authors.
+ *    Copyright 2012-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -54,6 +54,8 @@ final class MemcachedConfigurationBuilder {
     memcachedPropertiesFilename = System.getProperty(SYSTEM_PROPERTY_MEMCACHED_PROPERTIES_FILENAME, MEMCACHED_RESOURCE);
 
     settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.keyprefix", "keyPrefix", "_mybatis_"));
+    settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.username", "username", ""));
+    settersRegistry.add(new StringPropertySetter("org.mybatis.caches.memcached.password", "password", ""));
 
     settersRegistry
         .add(new IntegerPropertySetter("org.mybatis.caches.memcached.expiration", "expiration", 60 * 60 * 24 * 30));
@@ -63,6 +65,7 @@ final class MemcachedConfigurationBuilder {
     settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.asyncget", "usingAsyncGet", false));
     settersRegistry
         .add(new BooleanPropertySetter("org.mybatis.caches.memcached.compression", "compressionEnabled", false));
+    settersRegistry.add(new BooleanPropertySetter("org.mybatis.caches.memcached.sasl", "usingSASL", false));
 
     settersRegistry.add(new InetSocketAddressListPropertySetter());
     settersRegistry.add(new ConnectionFactorySetter());

@@ -1,5 +1,5 @@
 /**
- *    Copyright 2012-2018 the original author or authors.
+ *    Copyright 2012-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -24,9 +24,12 @@ import java.util.concurrent.Future;
 
 import net.spy.memcached.CASResponse;
 import net.spy.memcached.CASValue;
+import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
 import net.spy.memcached.internal.OperationFuture;
 
+import net.spy.memcached.auth.AuthDescriptor;
+import net.spy.memcached.auth.PlainCallbackHandler;
 import org.apache.ibatis.cache.CacheException;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -81,7 +84,15 @@ final class MemcachedClientWrapper {
   public MemcachedClientWrapper() {
     configuration = MemcachedConfigurationBuilder.getInstance().parseConfiguration();
     try {
-      client = new MemcachedClient(configuration.getConnectionFactory(), configuration.getAddresses());
+      if (configuration.isUsingSASL()) {
+        AuthDescriptor ad = new AuthDescriptor(new String[] { "PLAIN" },
+            new PlainCallbackHandler(configuration.getUsername(), configuration.getPassword()));
+        client = new MemcachedClient(new ConnectionFactoryBuilder()
+            .setProtocol(ConnectionFactoryBuilder.Protocol.BINARY).setAuthDescriptor(ad).build(),
+            configuration.getAddresses());
+      } else {
+        client = new MemcachedClient(configuration.getConnectionFactory(), configuration.getAddresses());
+      }
     } catch (IOException e) {
       String message = "Impossible to instantiate a new memecached client instance, see nested exceptions";
       LOG.error(message, e);
