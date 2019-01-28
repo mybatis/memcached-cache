@@ -14,3 +14,18 @@ Essentials
 ----------
 
 * [See the docs](http://mybatis.github.io/memcached-cache/)
+
+Releasing
+---------
+
+To release this library, use the maven release plugin.  If no memcache installed ensure to set the following:
+
+-DskipTests -Darguments="-DskipTests"
+
+Doing so will make sure the forked processes involved skip tests all together.
+
+Typical maven release is done as follows where tests ignored.
+
+mvn release:clean
+mvn release:prepare -DskipTests -Darguments="-DskipTests"
+mvn release:perform -DskipTests -Darguments="-DskipTests"
