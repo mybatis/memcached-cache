@@ -30,6 +30,7 @@ jobs:
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
+      - uses: niden/actions-memcached@v7
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
