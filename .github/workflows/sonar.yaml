@@ -32,7 +32,7 @@ jobs:
           fetch-depth: 0
       - uses: niden/actions-memcached@v7
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: 11
           distribution: zulu
