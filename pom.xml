@@ -48,8 +48,8 @@
     <url>https://github.com/mybatis/memcached-cache/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/memcached-cache</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/mybatis/memcached-cache</url>
   </ciManagement>
   <distributionManagement>
     <site>
