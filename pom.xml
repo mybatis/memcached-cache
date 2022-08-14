@@ -65,6 +65,7 @@
     <gcu.product>Cache</gcu.product>
     <module.name>org.mybatis.caches.memcached</module.name>
     <project.build.outputTimestamp>1645112687</project.build.outputTimestamp>
+    <argLine>-Djdk.attach.allowAttachSelf -Xms1024m -Xmx1024m</argLine>
   </properties>
 
   <dependencies>
@@ -106,14 +107,6 @@
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <releaseProfiles>release,bundle</releaseProfiles>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-            <argLine>${argLine} -Xms1024m -Xmx1024m</argLine>
         </configuration>
       </plugin>
     </plugins>
