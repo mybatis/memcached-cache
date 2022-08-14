@@ -109,7 +109,7 @@
               <argLine>${argLine} -Xms1024m -Xmx1024m</argLine>
             </configuration>
           </plugin>
-        <plugins>
+        </plugins>
       </pluginManagement>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
