@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2012-2021 the original author or authors.
+       Copyright 2012-2022 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.mybatis</groupId>
     <artifactId>mybatis-parent</artifactId>
-    <version>34</version>
+    <version>35</version>
     <relativePath />
   </parent>
 
@@ -48,8 +48,8 @@
     <url>https://github.com/mybatis/memcached-cache/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/mybatis/memcached-cache</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/mybatis/memcached-cache</url>
   </ciManagement>
   <distributionManagement>
     <site>
@@ -113,7 +113,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-            <argLine>-Xms1024m -Xmx1024m</argLine>
+            <argLine>${argLine} -Xms1024m -Xmx1024m</argLine>
         </configuration>
       </plugin>
     </plugins>
