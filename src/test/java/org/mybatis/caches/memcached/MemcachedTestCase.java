@@ -28,7 +28,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * HOW TO RUN THE TEST Install memcached:
+ * HOW TO RUN THE TEST
+ * <p>
+ * Install memcached:
  * <ul>
  * <li>on ubuntu: open the shell and type <code>sudo apt-get install memcached</code></li>
  * <li>on mac os x: open the terminal and type <code>sudo port install memcached</code></li>

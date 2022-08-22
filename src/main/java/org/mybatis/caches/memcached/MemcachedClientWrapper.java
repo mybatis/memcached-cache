@@ -306,8 +306,9 @@ final class MemcachedClientWrapper {
   }
 
   /**
-   * Tries to update an object value in memcached considering the cas validation Returns true if the object passed the
-   * cas validation and was modified.
+   * Tries to update an object value in memcached considering the cas validation.
+   * <p>
+   * Returns true if the object passed the cas validation and was modified.
    *
    * @param keyString
    * @param value
@@ -333,7 +334,9 @@ final class MemcachedClientWrapper {
   }
 
   /**
-   * Tries to store an object identified by a key in Memcached. Will fail if the object already exists.
+   * Tries to store an object identified by a key in Memcached.
+   * <p>
+   * Will fail if the object already exists.
    *
    * @param keyString
    * @param value
