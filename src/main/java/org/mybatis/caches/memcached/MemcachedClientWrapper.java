@@ -1,11 +1,11 @@
 /*
- *    Copyright 2012-2021 the original author or authors.
+ *    Copyright 2012-2022 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *       https://www.apache.org/licenses/LICENSE-2.0
  *
  *    Unless required by applicable law or agreed to in writing, software
  *    distributed under the License is distributed on an "AS IS" BASIS,
@@ -109,6 +109,7 @@ final class MemcachedClientWrapper {
    *
    * @param key
    *          the MyBatis object key.
+   *
    * @return the proper string representation.
    */
   private String toKeyString(final Object key) {
@@ -121,8 +122,8 @@ final class MemcachedClientWrapper {
   }
 
   /**
-   *
    * @param key
+   *
    * @return
    */
   public Object getObject(Object key) {
@@ -141,6 +142,7 @@ final class MemcachedClientWrapper {
    *
    * @param groupKey
    *          the group key.
+   *
    * @return the group if was previously stored, null otherwise.
    */
   private ObjectWithCas getGroup(String groupKey) {
@@ -170,10 +172,10 @@ final class MemcachedClientWrapper {
   }
 
   /**
-   *
-   *
    * @param keyString
+   *
    * @return
+   *
    * @throws Exception
    */
   private Object retrieve(final String keyString) {
@@ -208,7 +210,9 @@ final class MemcachedClientWrapper {
    * Retrieves an object along with its cas using the given key
    *
    * @param keyString
+   *
    * @return
+   *
    * @throws Exception
    */
   private ObjectWithCas retrieveWithCas(final String keyString) {
@@ -302,12 +306,12 @@ final class MemcachedClientWrapper {
   }
 
   /**
-   * Tries to update an object value in memcached considering the cas validation
-   *
-   * Returns true if the object passed the cas validation and was modified.
+   * Tries to update an object value in memcached considering the cas validation Returns true if the object passed the
+   * cas validation and was modified.
    *
    * @param keyString
    * @param value
+   *
    * @return
    */
   private boolean storeInMemcached(String keyString, ObjectWithCas value) {
@@ -329,12 +333,11 @@ final class MemcachedClientWrapper {
   }
 
   /**
-   * Tries to store an object identified by a key in Memcached.
-   *
-   * Will fail if the object already exists.
+   * Tries to store an object identified by a key in Memcached. Will fail if the object already exists.
    *
    * @param keyString
    * @param value
+   *
    * @return
    */
   private boolean tryToAdd(String keyString, Object value) {
