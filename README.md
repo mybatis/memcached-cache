@@ -7,14 +7,14 @@ MyBatis Memcached Extension
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis.caches/mybatis-memcached.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/caches/mybatis-memcached/)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-![mybatis-memcached](http://mybatis.github.io/images/mybatis-logo.png)
+![mybatis-memcached](https://mybatis.org/images/mybatis-logo.png)
 
 MyBatis-Memcached extension Memcached support for MyBatis Cache.
 
 Essentials
 ----------
 
-* [See the docs](http://mybatis.github.io/memcached-cache/)
+* [See the docs](https://mybatis.org/memcached-cache/)
 
 Releasing
 ---------
