@@ -64,8 +64,10 @@
     <findbugs.onlyAnalyze>org.mybatis.caches.memcached.*</findbugs.onlyAnalyze>
     <gcu.product>Cache</gcu.product>
     <module.name>org.mybatis.caches.memcached</module.name>
-    <project.build.outputTimestamp>1645112687</project.build.outputTimestamp>
     <argLine>-Djdk.attach.allowAttachSelf -Xms1024m -Xmx1024m</argLine>
+
+    <!-- Reproducible Builds -->
+    <project.build.outputTimestamp>1757561022</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
