@@ -28,7 +28,7 @@
 
   <groupId>org.mybatis.caches</groupId>
   <artifactId>mybatis-memcached</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.1</version>
   <packaging>jar</packaging>
 
   <name>mybatis-memcached</name>
@@ -41,7 +41,7 @@
     <url>http://github.com/mybatis/memcached-cache</url>
     <connection>scm:git:ssh://github.com/mybatis/memcached-cache.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mybatis/memcached-cache.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>mybatis-memcached-1.1.1</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -67,7 +67,7 @@
     <argLine>-Djdk.attach.allowAttachSelf -Xms1024m -Xmx1024m</argLine>
 
     <!-- Reproducible Builds -->
-    <project.build.outputTimestamp>1757561022</project.build.outputTimestamp>
+    <project.build.outputTimestamp>1670887656</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
