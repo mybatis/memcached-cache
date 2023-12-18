@@ -113,6 +113,7 @@
     </plugins>
   </build>
 
+  <!-- Profile exists if using projects-aggregator to build as it needs to skip this project on windows -->
   <profiles>
     <profile>
       <id>noTest</id>
