@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-       Copyright 2012-2023 the original author or authors.
+       Copyright 2012-2024 the original author or authors.
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -32,15 +32,15 @@
 
   <name>mybatis-memcached</name>
   <description>Memcached support for MyBatis Cache</description>
-  <url>http://www.mybatis.org/caches/memcached/</url>
+  <url>https://www.mybatis.org/memcached-cache/</url>
 
   <inceptionYear>2012</inceptionYear>
 
   <scm>
-    <url>http://github.com/mybatis/memcached-cache</url>
     <connection>scm:git:ssh://git@github.com/mybatis/memcached-cache.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/mybatis/memcached-cache.git</developerConnection>
     <tag>HEAD</tag>
+    <url>http://github.com/mybatis/memcached-cache/</url>
   </scm>
   <issueManagement>
     <system>GitHub Issue Management</system>
@@ -48,7 +48,7 @@
   </issueManagement>
   <ciManagement>
     <system>GitHub Actions</system>
-    <url>https://github.com/mybatis/memcached-cache</url>
+    <url>https://github.com/mybatis/memcached-cache/actions</url>
   </ciManagement>
   <distributionManagement>
     <site>
@@ -70,9 +70,7 @@
   </properties>
 
   <dependencies>
-    <!--
-     | Provided dependencies
-    -->
+    <!-- Provided dependencies -->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
@@ -80,9 +78,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!--
-     | compile dependencies
-    -->
+    <!-- compile dependencies -->
     <dependency>
       <groupId>net.spy</groupId>
       <artifactId>spymemcached</artifactId>
@@ -90,9 +86,7 @@
       <scope>compile</scope>
     </dependency>
 
-    <!--
-     | test dependencies
-    -->
+    <!-- test dependencies -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
