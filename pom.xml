@@ -70,9 +70,7 @@
   </properties>
 
   <dependencies>
-    <!--
-     | Provided dependencies
-    -->
+    <!-- Provided dependencies -->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
@@ -80,9 +78,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!--
-     | compile dependencies
-    -->
+    <!-- compile dependencies -->
     <dependency>
       <groupId>net.spy</groupId>
       <artifactId>spymemcached</artifactId>
@@ -90,9 +86,7 @@
       <scope>compile</scope>
     </dependency>
 
-    <!--
-     | test dependencies
-    -->
+    <!-- test dependencies -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
