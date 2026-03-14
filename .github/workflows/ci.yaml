@@ -17,14 +17,41 @@ jobs:
         cache: [maven]
         distribution: [temurin]
         java: [21, 25, 26-ea]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
-      max-parallel: 6
+      max-parallel: 9
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      - uses: niden/actions-memcached@9ff2b102979272958682d09bf262563039bea69c # v8
+      - name: Install memcached (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y memcached
+          memcached -d
+      - name: Install memcached (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install memcached
+          memcached -d
+      - name: Install memcached (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $tag = '1.6.41'
+          $base = "https://raw.githubusercontent.com/nono303/memcached/$tag/libevent-2.1/x64"
+          $dir = 'C:\memcached'
+          New-Item -ItemType Directory -Path $dir -Force | Out-Null
+          @(
+            'memcached.exe', 'cygwin1.dll', 'cygcrypto-3.dll', 'cygssl-3.dll', 'cygz.dll',
+            'cygevent-2-1-7.dll', 'cygevent_core-2-1-7.dll', 'cygevent_extra-2-1-7.dll',
+            'cygevent_openssl-2-1-7.dll', 'cygevent_pthreads-2-1-7.dll'
+          ) | ForEach-Object {
+            Invoke-WebRequest -Uri "$base/$_" -OutFile "$dir\$_" -UseBasicParsing
+          }
+          Start-Process -FilePath "$dir\memcached.exe" -WorkingDirectory $dir -WindowStyle Hidden
+          Start-Sleep -Seconds 2
       - name: Setup Java ${{ matrix.java }} ${{ matrix.distribution }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
         with:
