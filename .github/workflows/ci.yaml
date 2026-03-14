@@ -60,7 +60,3 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Test with Maven
         run: ./mvnw test --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
-        if: runner.os != 'Windows'
-      - name: Test with Maven (Windows)
-        run: mvnw.cmd test --batch-mode --no-transfer-progress --show-version "-Dlicense.skip=true"
-        if: runner.os == 'Windows'
