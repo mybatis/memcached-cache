@@ -39,15 +39,19 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          choco install memcached -y --no-progress
-          $memcachedExe = 'C:\ProgramData\chocolatey\lib\memcached\tools\memcached.exe'
-          if (-not (Test-Path $memcachedExe)) {
-            Write-Error "memcached.exe not found at expected path after choco install"
-            exit 1
+          $tag = '1.6.41'
+          $base = "https://raw.githubusercontent.com/nono303/memcached/$tag/libevent-2.1/x64"
+          $dir = 'C:\memcached'
+          New-Item -ItemType Directory -Path $dir -Force | Out-Null
+          @(
+            'memcached.exe', 'cygwin1.dll', 'cygcrypto-3.dll', 'cygssl-3.dll', 'cygz.dll',
+            'cygevent-2-1-7.dll', 'cygevent_core-2-1-7.dll', 'cygevent_extra-2-1-7.dll',
+            'cygevent_openssl-2-1-7.dll', 'cygevent_pthreads-2-1-7.dll'
+          ) | ForEach-Object {
+            Invoke-WebRequest -Uri "$base/$_" -OutFile "$dir\$_" -UseBasicParsing
           }
-          Start-Process -FilePath $memcachedExe -WindowStyle Hidden
+          Start-Process -FilePath "$dir\memcached.exe" -WorkingDirectory $dir -WindowStyle Hidden
           Start-Sleep -Seconds 2
-          exit 0
       - name: Setup Java ${{ matrix.java }} ${{ matrix.distribution }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
         with:
