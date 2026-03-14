@@ -37,11 +37,17 @@ jobs:
           memcached -d
       - name: Install memcached (Windows)
         if: runner.os == 'Windows'
-        run: |
-          choco install memcached
-          memcached.exe -d install
-          net start memcached
         shell: pwsh
+        run: |
+          choco install memcached -y --no-progress
+          $memcachedExe = 'C:\ProgramData\chocolatey\lib\memcached\tools\memcached.exe'
+          if (-not (Test-Path $memcachedExe)) {
+            Write-Error "memcached.exe not found at expected path after choco install"
+            exit 1
+          }
+          Start-Process -FilePath $memcachedExe -WindowStyle Hidden
+          Start-Sleep -Seconds 2
+          exit 0
       - name: Setup Java ${{ matrix.java }} ${{ matrix.distribution }}
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
         with:
