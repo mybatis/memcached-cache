@@ -3,8 +3,7 @@ MyBatis Memcached Extension
 
 [![Java CI](https://github.com/mybatis/memcached-cache/actions/workflows/ci.yaml/badge.svg)](https://github.com/mybatis/memcached-cache/actions/workflows/ci.yaml)
 [![Coverage Status](https://coveralls.io/repos/mybatis/memcached-cache/badge.svg?branch=master&service=github)](https://coveralls.io/github/mybatis/memcached-cache?branch=master)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis.caches/mybatis-memcached/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis.caches/mybatis-memcached)
-[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis.caches/mybatis-memcached.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/caches/mybatis-memcached/)
+[![Maven Central](https://img.shields.io/maven-central/v/org.mybatis.caches/mybatis-memcached?label=maven%20central)](https://central.sonatype.com/artifact/org.mybatis.caches/mybatis-memcached)
 [![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ![mybatis-memcached](https://mybatis.org/images/mybatis-logo.png)
