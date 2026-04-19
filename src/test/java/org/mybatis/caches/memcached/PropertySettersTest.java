@@ -16,8 +16,8 @@
 package org.mybatis.caches.memcached;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -112,7 +112,7 @@ class PropertySettersTest {
     readWriteLock.readLock().lock();
     readWriteLock.readLock().unlock();
     readWriteLock.readLock().lockInterruptibly();
-    assertFalse(readWriteLock.readLock().newCondition() != null);
+    assertNull(readWriteLock.readLock().newCondition());
   }
 
   static final class TestConnectionFactory extends DefaultConnectionFactory {
