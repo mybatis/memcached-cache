@@ -18,7 +18,9 @@ Essentials
 Releasing
 ---------
 
-To release this library, use the maven release plugin.  If no memcache installed ensure to set the following profile ```-PnoTest```.
+To release this library, use the maven release plugin.
+
+If no memcache installed ensure to set the following profile ```-PnoTest```.
 
 Typical maven release is done as follows where tests ignored.
 
