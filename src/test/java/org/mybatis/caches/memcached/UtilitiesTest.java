@@ -30,8 +30,8 @@ import org.junit.jupiter.api.Test;
 class UtilitiesTest {
 
   @Test
-  void shouldComputeSha1Hex() {
-    assertEquals("a9993e364706816aba3e25717850c26c9cd0d89d", StringUtils.sha1Hex("abc"));
+  void shouldComputeSha256Hex() {
+    assertEquals("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", StringUtils.sha1Hex("abc"));
   }
 
   @Test
