@@ -114,7 +114,7 @@ final class MemcachedClientWrapper {
    */
   private String toKeyString(final Object key) {
     // issue #1, key too long
-    String keyString = configuration.getKeyPrefix() + StringUtils.sha1Hex(key.toString());
+    String keyString = configuration.getKeyPrefix() + StringUtils.sha256Hex(key.toString());
     if (LOG.isDebugEnabled()) {
       LOG.debug("Object key '" + key + "' converted in '" + keyString + "'");
     }

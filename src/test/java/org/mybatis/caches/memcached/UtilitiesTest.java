@@ -31,12 +31,12 @@ class UtilitiesTest {
 
   @Test
   void shouldComputeSha256Hex() {
-    assertEquals("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", StringUtils.sha1Hex("abc"));
+    assertEquals("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", StringUtils.sha256Hex("abc"));
   }
 
   @Test
-  void shouldRejectNullWhenComputingSha1Hex() {
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> StringUtils.sha1Hex(null));
+  void shouldRejectNullWhenComputingSha256Hex() {
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> StringUtils.sha256Hex(null));
     assertEquals("data must not be null", exception.getMessage());
   }
 

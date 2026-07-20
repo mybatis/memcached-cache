@@ -32,7 +32,7 @@ public final class StringUtils {
     // Prevent Instantiation
   }
 
-  public static String sha1Hex(String data) {
+  public static String sha256Hex(String data) {
     if (data == null) {
       throw new IllegalArgumentException("data must not be null");
     }
