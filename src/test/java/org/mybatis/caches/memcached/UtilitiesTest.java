@@ -36,7 +36,8 @@ class UtilitiesTest {
 
   @Test
   void shouldRejectNullWhenComputingSha256Hex() {
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> StringUtils.sha256Hex(null));
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        () -> StringUtils.sha256Hex(null));
     assertEquals("data must not be null", exception.getMessage());
   }
 
