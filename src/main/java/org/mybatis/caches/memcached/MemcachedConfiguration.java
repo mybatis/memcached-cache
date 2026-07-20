@@ -1,5 +1,5 @@
 /*
- *    Copyright 2012-2022 the original author or authors.
+ *    Copyright 2012-2026 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  *    limitations under the License.
  */
 package org.mybatis.caches.memcached;
-
-import static java.lang.String.format;
 
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -318,10 +316,9 @@ final class MemcachedConfiguration {
    */
   @Override
   public String toString() {
-    return format(
-        "MemcachedConfiguration [addresses=%s, compressionEnabled=%s, connectionFactory=%s, , expiration=%s, keyPrefix=%s, timeUnit=%s, timeout=%s, usingAsyncGet=%s, usingSASL=%s, username=%s, password=%s]",
-        addresses, compressionEnabled, connectionFactory, expiration, keyPrefix, timeUnit, timeout, usingAsyncGet,
-        usingSASL, username, password);
+    return "MemcachedConfiguration [addresses=%s, compressionEnabled=%s, connectionFactory=%s, , expiration=%s, keyPrefix=%s, timeUnit=%s, timeout=%s, usingAsyncGet=%s, usingSASL=%s, username=%s, password=%s]"
+        .formatted(addresses, compressionEnabled, connectionFactory, expiration, keyPrefix, timeUnit, timeout,
+            usingAsyncGet, usingSASL, username, password);
   }
 
 }
