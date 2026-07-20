@@ -37,7 +37,7 @@ public final class StringUtils {
       throw new IllegalArgumentException("data must not be null");
     }
 
-    byte[] bytes = digest("SHA1", data);
+    byte[] bytes = digest("SHA-256", data);
 
     return toHexString(bytes);
   }
