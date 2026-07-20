@@ -53,7 +53,7 @@ public class GroupTestThread extends Thread {
   public void run() {
     Random random = new Random();
 
-    for (int i = 0; i < itemsToCreate; i++) {
+    for (long i = 0; i < itemsToCreate; i++) {
       cache.putObject(UUID.randomUUID().toString(), "TEST");
 
       // Wait between 1 and 10 milliseconds between each insertion
