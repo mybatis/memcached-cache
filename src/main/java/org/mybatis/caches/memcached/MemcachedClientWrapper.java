@@ -53,7 +53,7 @@ final class MemcachedClientWrapper {
    *
    * @author Weisz, Gustavo E.
    */
-  private class ObjectWithCas {
+  private static class ObjectWithCas {
 
     Object object;
     long cas;
