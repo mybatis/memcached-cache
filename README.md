@@ -24,6 +24,6 @@ If no memcache installed ensure to set the following profile ```-PnoTest```.
 
 Typical maven release is done as follows where tests ignored.
 
-mvn release:clean
-mvn release:prepare -PnoTest
-mvn release:perform -PnoTest
+* mvn release:clean
+* mvn release:prepare -PnoTest
+* mvn release:perform -PnoTest
